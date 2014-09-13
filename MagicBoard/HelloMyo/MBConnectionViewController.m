@@ -282,11 +282,11 @@
         //if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
         //if([service.UUID.UUIDString isEqualToString:@"DA2B84F1-6279-48DE-BDC0-AFBEA0226079"]) {
             NSLog(@"match");
-            [peripheral discoverCharacteristics:nil forService:service];
             //break;
         } else {
             NSLog(@"no match");
         }
+        [peripheral discoverCharacteristics:nil forService:service];
     }
 }
 
@@ -294,9 +294,20 @@
 didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error {
     
+
+    
     NSLog(@"service %@", service.UUID.UUIDString);
-    for (CBCharacteristic *characteristic in service.characteristics) {
-        NSLog(@"UUID = %@, VALUE = %@", characteristic.UUID.UUIDString, characteristic.value);
+    for (id characteristic in service.characteristics) {
+        
+        if([characteristic isMemberOfClass:[CBCharacteristic class]]){
+            CBCharacteristic *casted = (CBCharacteristic*)characteristic;
+            [peripheral writeValue:[@"5" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:casted type:CBCharacteristicWriteWithResponse];
+            NSLog(@"UUID = %@, VALUE = %@", casted.UUID.UUIDString, casted.value);
+        }
+        else{
+            NSLog(@"noo");
+        }
+        
         //NSLog(@"Discovered characteristic %@", characteristic);
     }
 }

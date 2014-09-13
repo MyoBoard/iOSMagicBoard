@@ -1,33 +1,39 @@
 //
-//  MBViewController.m
-//  MagicBoard
+//  TLHMViewController.m
+//  HelloMyo
 //
-//  Created by Gregory Carlin on 9/12/14.
-//  Copyright (c) 2014 MyoBoard. All rights reserved.
+//  Copyright (c) 2013 Thalmic Labs. All rights reserved.
+//  Distributed under the Myo SDK license agreement. See LICENSE.txt.
 //
 
-#import "MBViewController.h"
+#import "TLHMViewController.h"
 #import <MyoKit/MyoKit.h>
 
-@interface MBViewController ()
+@interface TLHMViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *helloLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *accelerationProgressBar;
+@property (weak, nonatomic) IBOutlet UILabel *accelerationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *armLabel;
+@property (strong, nonatomic) TLMPose *currentPose;
+
+- (IBAction)didTapSettings:(id)sender;
 
 @end
 
-@implementation MBViewController
+@implementation TLHMViewController
+
+#pragma mark - View Lifecycle
+
+- (id)init {
+    // Initialize our view controller with a nib (see TLHMViewController.xib).
+    self = [super initWithNibName:@"TLHMViewController" bundle:nil];
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    NSLog(@"presenting settings");
-    [self pushMyoSettings];
-    //[self.lbl setText:@"hi"];
-    //[self modalPresentMyoSettings];
-    //[self attachToAnyMyo];
-    /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceivePoseChange:)
-                                                 name:TLMMyoDidReceivePoseChangedNotification
-                                               object:nil];*/
-    
+
     // Data notifications are received through NSNotificationCenter.
     // Posted whenever a TLMMyo connects
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -64,6 +70,7 @@
                                              selector:@selector(didReceivePoseChange:)
                                                  name:TLMMyoDidReceivePoseChangedNotification
                                                object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,98 +78,78 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-// Pushing it on an existing navigation controller
-- (void)pushMyoSettings {
-    TLMSettingsViewController *settings = [[TLMSettingsViewController alloc] init];
-    
-    [self pushViewController:settings animated:YES];
-}
-
-// Presenting modally
-/*- (void)modalPresentMyoSettings {
-    UINavigationController *settings = [TLMSettingsViewController settingsInNavigationController];
-    
-    [self presentViewController:settings animated:YES completion:nil];
-}
-
-// Connecting to a Myo with attachToAny
-- (void)attachToAnyMyo {
-    [[TLMHub sharedHub] attachToAny];
-}
-
-// Connecting to a Myo with attachToAdjacent
-- (void)attachToAdjacentMyo {
-    [[TLMHub sharedHub] attachToAdjacent];
-}
-
-// Connecting to a Myo by its identifier
-// The identifier for a Myo can be retrieved from the TLMMyo's identifier property
-- (void)attachToMyoByIdentifier:(NSUUID *)identifier {
-    [[TLMHub sharedHub] attachByIdentifier:identifier];
-}*/
+#pragma mark - NSNotificationCenter Methods
 
 - (void)didConnectDevice:(NSNotification *)notification {
-    NSLog(@"didConnectDevice (perform the sync gesture?)");
+    // Align our label to be in the center of the view.
+    [self.helloLabel setCenter:self.view.center];
+
+    // Set the text of the armLabel to "Perform the Sync Gesture"
+    self.armLabel.text = @"Perform the Sync Gesture";
+
+    // Set the text of our helloLabel to be "Hello Myo".
+    self.helloLabel.text = @"Hello Myo";
+
+    // Show the acceleration progress bar
+    [self.accelerationProgressBar setHidden:NO];
+    [self.accelerationLabel setHidden:NO];
 }
 
 - (void)didDisconnectDevice:(NSNotification *)notification {
-    NSLog(@"didDisconnectDevice");
+    // Remove the text of our label when the Myo has disconnected.
+    self.helloLabel.text = @"";
+    self.armLabel.text = @"";
+
+    // Hide the acceleration progress bar
+    [self.accelerationProgressBar setHidden:YES];
+    [self.accelerationLabel setHidden:YES];
 }
 
 - (void)didRecognizeArm:(NSNotification *)notification {
     // Retrieve the arm event from the notification's userInfo with the kTLMKeyArmRecognizedEvent key.
     TLMArmRecognizedEvent *armEvent = notification.userInfo[kTLMKeyArmRecognizedEvent];
-    
+
     // Update the armLabel with arm information
     NSString *armString = armEvent.arm == TLMArmRight ? @"Right" : @"Left";
     NSString *directionString = armEvent.xDirection == TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow";
-    NSString *text = [NSString stringWithFormat:@"Arm: %@ X-Direction: %@", armString, directionString];
-    NSLog(text);
+    self.armLabel.text = [NSString stringWithFormat:@"Arm: %@ X-Direction: %@", armString, directionString];
 }
 
 - (void)didLoseArm:(NSNotification *)notification {
-    NSLog(@"didLoseArm (perform the sync gesture?");
+    // Reset the armLabel and helloLabel
+    self.armLabel.text = @"Perform the Sync Gesture";
+    self.helloLabel.text = @"Hello Myo";
+    self.helloLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:50];
+    self.helloLabel.textColor = [UIColor blackColor];
 }
 
 - (void)didReceiveOrientationEvent:(NSNotification *)notification {
     // Retrieve the orientation from the NSNotification's userInfo with the kTLMKeyOrientationEvent key.
     TLMOrientationEvent *orientationEvent = notification.userInfo[kTLMKeyOrientationEvent];
-    
+
     // Create Euler angles from the quaternion of the orientation.
     TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
-    
+
     // Next, we want to apply a rotation and perspective transformation based on the pitch, yaw, and roll.
     CATransform3D rotationAndPerspectiveTransform = CATransform3DConcat(CATransform3DConcat(CATransform3DRotate (CATransform3DIdentity, angles.pitch.radians, -1.0, 0.0, 0.0), CATransform3DRotate(CATransform3DIdentity, angles.yaw.radians, 0.0, 1.0, 0.0)), CATransform3DRotate(CATransform3DIdentity, angles.roll.radians, 0.0, 0.0, -1.0));
-    
+
     // Apply the rotation and perspective transform to helloLabel.
-    //self.helloLabel.layer.transform = rotationAndPerspectiveTransform;
-    NSLog(@"didReceiveOrientationEvent");
+    self.helloLabel.layer.transform = rotationAndPerspectiveTransform;
 }
 
 - (void)didReceiveAccelerometerEvent:(NSNotification *)notification {
     // Retrieve the accelerometer event from the NSNotification's userInfo with the kTLMKeyAccelerometerEvent.
     TLMAccelerometerEvent *accelerometerEvent = notification.userInfo[kTLMKeyAccelerometerEvent];
-    
+
     // Get the acceleration vector from the accelerometer event.
     GLKVector3 accelerationVector = accelerometerEvent.vector;
-    
+
     // Calculate the magnitude of the acceleration vector.
     float magnitude = GLKVector3Length(accelerationVector);
-    
+
     // Update the progress bar based on the magnitude of the acceleration vector.
-    //self.accelerationProgressBar.progress = magnitude / 8;
-    NSLog(@"didReceiveAccelerometerEvent");
-    
+    self.accelerationProgressBar.progress = magnitude / 8;
+
     /* Note you can also access the x, y, z values of the acceleration (in G's) like below
      float x = accelerationVector.x;
      float y = accelerationVector.y;
@@ -173,10 +160,10 @@
 - (void)didReceivePoseChange:(NSNotification *)notification {
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
-    //self.currentPose = pose;
-    
+    self.currentPose = pose;
+
     // Handle the cases of the TLMPoseType enumeration, and change the color of helloLabel based on the pose we receive.
-    /*switch (pose.type) {
+    switch (pose.type) {
         case TLMPoseTypeUnknown:
         case TLMPoseTypeRest:
             // Changes helloLabel's font to Helvetica Neue when the user is in a rest or unknown pose.
@@ -214,8 +201,14 @@
             self.helloLabel.font = [UIFont fontWithName:@"Georgia" size:50];
             self.helloLabel.textColor = [UIColor greenColor];
             break;
-    }*/
-    NSLog(@"POSE: %d", pose.type);
+    }
+}
+
+- (IBAction)didTapSettings:(id)sender {
+    // Note that when the settings view controller is presented to the user, it must be in a UINavigationController.
+    UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
+    // Present the settings view controller modally.
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

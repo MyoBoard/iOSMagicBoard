@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5087110319C3D969001FBADE"
-               BuildableName = "MagicBoard.app"
-               BlueprintName = "MagicBoard"
-               ReferencedContainer = "container:MagicBoard.xcodeproj">
+               BlueprintIdentifier = "4D00AF1417CE6E3800A0FAE8"
+               BuildableName = "HelloMyo.app"
+               BlueprintName = "HelloMyo"
+               ReferencedContainer = "container:HelloMyo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5087112719C3D96A001FBADE"
-               BuildableName = "MagicBoardTests.xctest"
-               BlueprintName = "MagicBoardTests"
-               ReferencedContainer = "container:MagicBoard.xcodeproj">
+               BlueprintIdentifier = "4D00AF3517CE6E3800A0FAE8"
+               BuildableName = "HelloMyoTests.xctest"
+               BlueprintName = "HelloMyoTests"
+               ReferencedContainer = "container:HelloMyo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5087110319C3D969001FBADE"
-            BuildableName = "MagicBoard.app"
-            BlueprintName = "MagicBoard"
-            ReferencedContainer = "container:MagicBoard.xcodeproj">
+            BlueprintIdentifier = "4D00AF1417CE6E3800A0FAE8"
+            BuildableName = "HelloMyo.app"
+            BlueprintName = "HelloMyo"
+            ReferencedContainer = "container:HelloMyo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -61,10 +61,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5087110319C3D969001FBADE"
-            BuildableName = "MagicBoard.app"
-            BlueprintName = "MagicBoard"
-            ReferencedContainer = "container:MagicBoard.xcodeproj">
+            BlueprintIdentifier = "4D00AF1417CE6E3800A0FAE8"
+            BuildableName = "HelloMyo.app"
+            BlueprintName = "HelloMyo"
+            ReferencedContainer = "container:HelloMyo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,10 +79,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5087110319C3D969001FBADE"
-            BuildableName = "MagicBoard.app"
-            BlueprintName = "MagicBoard"
-            ReferencedContainer = "container:MagicBoard.xcodeproj">
+            BlueprintIdentifier = "4D00AF1417CE6E3800A0FAE8"
+            BuildableName = "HelloMyo.app"
+            BlueprintName = "HelloMyo"
+            ReferencedContainer = "container:HelloMyo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

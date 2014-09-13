@@ -7,10 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TLHMViewController">
             <connections>
-                <outlet property="accelerationLabel" destination="ElJ-w6-lWZ" id="ia1-II-iv1"/>
-                <outlet property="accelerationProgressBar" destination="MgH-SR-cGb" id="Mej-eJ-5M8"/>
-                <outlet property="armLabel" destination="PZZ-43-Lmv" id="FZW-1p-Jeh"/>
-                <outlet property="helloLabel" destination="pp2-8q-h8n" id="AQF-Op-8s0"/>
+                <outlet property="accelLabel" destination="o1i-Lz-vD8" id="id4-cN-ckg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="m5V-7s-gjm"/>
             </connections>
         </placeholder>
@@ -19,13 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" adjustsLetterSpacingToFitWidth="YES" id="pp2-8q-h8n" userLabel="helloLabel">
-                    <rect key="frame" x="0.0" y="247" width="320" height="74"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u3p-Wq-sw0">
                     <rect key="frame" x="114" y="498" width="92" height="50"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -38,20 +28,9 @@
                         <action selector="didTapSettings:" destination="-1" eventType="touchUpInside" id="1qB-Xt-IAA"/>
                     </connections>
                 </button>
-                <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="MgH-SR-cGb" userLabel="accelerationProgressBar">
-                    <rect key="frame" x="20" y="80" width="280" height="2"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </progressView>
-                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acceleration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ElJ-w6-lWZ" userLabel="accelerationLabel">
-                    <rect key="frame" x="112" y="51" width="96" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PZZ-43-Lmv" userLabel="armLabel">
-                    <rect key="frame" x="20" y="90" width="280" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o1i-Lz-vD8" userLabel="accelLabel">
+                    <rect key="frame" x="139" y="273" width="137" height="76"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>

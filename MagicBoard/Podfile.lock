@@ -1,0 +1,10 @@
+PODS:
+  - GRKCircularGraphView (1.1)
+
+DEPENDENCIES:
+  - GRKCircularGraphView
+
+SPEC CHECKSUMS:
+  GRKCircularGraphView: 4646d36244a987fd7ec62ebda1e5242cebebb966
+
+COCOAPODS: 0.33.1

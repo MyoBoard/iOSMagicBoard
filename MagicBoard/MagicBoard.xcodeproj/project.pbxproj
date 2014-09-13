@@ -22,6 +22,10 @@
 		5087112C19C3D96A001FBADE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087110B19C3D969001FBADE /* UIKit.framework */; };
 		5087113419C3D96A001FBADE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5087113219C3D96A001FBADE /* InfoPlist.strings */; };
 		5087113619C3D96A001FBADE /* MagicBoardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087113519C3D96A001FBADE /* MagicBoardTests.m */; };
+		5087114019C3DBE5001FBADE /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087113F19C3DBE5001FBADE /* MyoKit.framework */; };
+		5087114219C3DC57001FBADE /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087114119C3DC57001FBADE /* MyoKit.framework */; };
+		5087114419C3DC8A001FBADE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087114319C3DC8A001FBADE /* CoreBluetooth.framework */; };
+		5087114619C3DCED001FBADE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087114519C3DCED001FBADE /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,10 @@
 		5087113119C3D96A001FBADE /* MagicBoardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MagicBoardTests-Info.plist"; sourceTree = "<group>"; };
 		5087113319C3D96A001FBADE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5087113519C3D96A001FBADE /* MagicBoardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MagicBoardTests.m; sourceTree = "<group>"; };
+		5087113F19C3DBE5001FBADE /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
+		5087114119C3DC57001FBADE /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyoKit.framework; path = "../../myo-ios-sdk-beta1/MyoKit.framework"; sourceTree = "<group>"; };
+		5087114319C3DC8A001FBADE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		5087114519C3DCED001FBADE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +71,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5087114619C3DCED001FBADE /* SystemConfiguration.framework in Frameworks */,
+				5087114419C3DC8A001FBADE /* CoreBluetooth.framework in Frameworks */,
+				5087114219C3DC57001FBADE /* MyoKit.framework in Frameworks */,
 				5087110A19C3D969001FBADE /* CoreGraphics.framework in Frameworks */,
+				5087114019C3DBE5001FBADE /* MyoKit.framework in Frameworks */,
 				5087110C19C3D969001FBADE /* UIKit.framework in Frameworks */,
 				5087110819C3D969001FBADE /* Foundation.framework in Frameworks */,
 			);
@@ -104,6 +116,10 @@
 		5087110619C3D969001FBADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5087114519C3DCED001FBADE /* SystemConfiguration.framework */,
+				5087114319C3DC8A001FBADE /* CoreBluetooth.framework */,
+				5087114119C3DC57001FBADE /* MyoKit.framework */,
+				5087113F19C3DBE5001FBADE /* MyoKit.framework */,
 				5087110719C3D969001FBADE /* Foundation.framework */,
 				5087110919C3D969001FBADE /* CoreGraphics.framework */,
 				5087110B19C3D969001FBADE /* UIKit.framework */,
@@ -383,6 +399,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/nlazaris/src/myo-ios-sdk-beta1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MagicBoard/MagicBoard-Prefix.pch";
 				INFOPLIST_FILE = "MagicBoard/MagicBoard-Info.plist";
@@ -396,6 +417,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"/Users/nlazaris/src/myo-ios-sdk-beta1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MagicBoard/MagicBoard-Prefix.pch";
 				INFOPLIST_FILE = "MagicBoard/MagicBoard-Info.plist";

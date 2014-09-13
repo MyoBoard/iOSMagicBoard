@@ -10,7 +10,6 @@
 #import <MyoKit/MyoKit.h>
 #import "MBConnectionViewController.h"
 #import "MBUserInterface.h"
-#import "MBMainViewController.h"
 
 @implementation MBAppDelegate
 

@@ -19,6 +19,9 @@
     // Call attachToAdjacent to begin looking for Myos to pair with.
     [[TLMHub sharedHub] attachToAdjacent];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor, nil];
+    [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     

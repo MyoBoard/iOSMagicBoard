@@ -46,6 +46,8 @@
     self.myoLabel.textColor      = kLightGrey;
     self.boostedLabel.textColor  = kLightGrey;
     
+    self.navigationItem.title = @"Magic";
+    
 //    self.navigationItem.titleView = [UITextView alloc]in
     // Data notifications are received through NSNotificationCenter.
     // Posted whenever a TLMMyo connects

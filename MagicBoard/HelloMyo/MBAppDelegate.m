@@ -6,21 +6,34 @@
 //  Distributed under the Myo SDK license agreement. See LICENSE.txt.
 //
 
-#import "TLHMAppDelegate.h"
+#import "MBAppDelegate.h"
 #import <MyoKit/MyoKit.h>
-#import "TLHMViewController.h"
+#import "MBConnectionViewController.h"
+#import "MBUserInterface.h"
+#import "MBMainViewController.h"
 
-@implementation TLHMAppDelegate
+@implementation MBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Instantiate the hub using the singleton accessor, and set the applicationIdentifier of our application.
     [[TLMHub sharedHub] setApplicationIdentifier:@"com.example.hellomyo"];
     // Call attachToAdjacent to begin looking for Myos to pair with.
     [[TLMHub sharedHub] attachToAdjacent];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     
+    UIViewController *rootController = [[MBMainViewController alloc]init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
     // Instantiate our view controller
+    navigationController.navigationBar.barTintColor = kMyoBlue;
+    navigationController.navigationBar.tintColor   = [UIColor whiteColor];
+    navigationController.navigationBar.translucent = NO;
+    navigationController.navigationBar.shadowImage = nil;
+    
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[TLHMViewController alloc] init];
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
     return YES;

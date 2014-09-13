@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface TLHMViewController : UIViewController<CBCentralManagerDelegate>
+@interface MBConnectionViewController : UIViewController<CBCentralManagerDelegate>
 
 - (void)foundBoard:(CBPeripheral*)board;
+
 
 @end

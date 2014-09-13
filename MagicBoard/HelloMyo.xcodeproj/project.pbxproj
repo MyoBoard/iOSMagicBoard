@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		378A627619C42D2C002222A2 /* BTPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 378A627419C42D2C002222A2 /* BTPickerController.m */; };
 		378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 378A627519C42D2C002222A2 /* BTPickerController.xib */; };
-		37990E401888304E00A4E063 /* TLHMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37990E3F1888304E00A4E063 /* TLHMViewController.xib */; };
+		37990E401888304E00A4E063 /* MBConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */; };
 		4D00AF1917CE6E3800A0FAE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */; };
 		4D00AF1B17CE6E3800A0FAE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1A17CE6E3800A0FAE8 /* CoreGraphics.framework */; };
 		4D00AF1D17CE6E3800A0FAE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1C17CE6E3800A0FAE8 /* UIKit.framework */; };
 		4D00AF2317CE6E3800A0FAE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D00AF2117CE6E3800A0FAE8 /* InfoPlist.strings */; };
 		4D00AF2517CE6E3800A0FAE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF2417CE6E3800A0FAE8 /* main.m */; };
-		4D00AF2917CE6E3800A0FAE8 /* TLHMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF2817CE6E3800A0FAE8 /* TLHMAppDelegate.m */; };
-		4D00AF2F17CE6E3800A0FAE8 /* TLHMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF2E17CE6E3800A0FAE8 /* TLHMViewController.m */; };
+		4D00AF2917CE6E3800A0FAE8 /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF2817CE6E3800A0FAE8 /* MBAppDelegate.m */; };
+		4D00AF2F17CE6E3800A0FAE8 /* MBConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF2E17CE6E3800A0FAE8 /* MBConnectionViewController.m */; };
 		4D00AF3117CE6E3800A0FAE8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D00AF3017CE6E3800A0FAE8 /* Images.xcassets */; };
 		4D00AF3817CE6E3800A0FAE8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF3717CE6E3800A0FAE8 /* XCTest.framework */; };
 		4D00AF3917CE6E3800A0FAE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */; };
@@ -24,6 +24,9 @@
 		4D00AF4217CE6E3800A0FAE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D00AF4017CE6E3800A0FAE8 /* InfoPlist.strings */; };
 		4D00AF4417CE6E3800A0FAE8 /* HelloMyoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF4317CE6E3800A0FAE8 /* HelloMyoTests.m */; };
 		4D4EEBF717E226B900CAA2AF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */; };
+		5087118F19C4848D001FBADE /* MBUserInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087118E19C4848D001FBADE /* MBUserInterface.m */; };
+		5087119419C4972A001FBADE /* MBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087119219C4972A001FBADE /* MBMainViewController.m */; };
+		5087119519C4972A001FBADE /* MBMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5087119319C4972A001FBADE /* MBMainViewController.xib */; };
 		54EA8FC819BFD94500D792A0 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EA8FC719BFD94500D792A0 /* MyoKit.framework */; };
 		DA73939BCD5C4285A74AA9AA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62946F9FBD0442FFB0C78872 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -42,7 +45,7 @@
 		378A627319C42D2C002222A2 /* BTPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPickerController.h; sourceTree = "<group>"; };
 		378A627419C42D2C002222A2 /* BTPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPickerController.m; sourceTree = "<group>"; };
 		378A627519C42D2C002222A2 /* BTPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTPickerController.xib; sourceTree = "<group>"; };
-		37990E3F1888304E00A4E063 /* TLHMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLHMViewController.xib; sourceTree = "<group>"; };
+		37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBConnectionViewController.xib; sourceTree = "<group>"; };
 		4D00AF1517CE6E3800A0FAE8 /* MyoBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4D00AF1A17CE6E3800A0FAE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -51,10 +54,10 @@
 		4D00AF2217CE6E3800A0FAE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D00AF2417CE6E3800A0FAE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4D00AF2617CE6E3800A0FAE8 /* HelloMyo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloMyo-Prefix.pch"; sourceTree = "<group>"; };
-		4D00AF2717CE6E3800A0FAE8 /* TLHMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TLHMAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4D00AF2817CE6E3800A0FAE8 /* TLHMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TLHMAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4D00AF2D17CE6E3800A0FAE8 /* TLHMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TLHMViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4D00AF2E17CE6E3800A0FAE8 /* TLHMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TLHMViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4D00AF2717CE6E3800A0FAE8 /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MBAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4D00AF2817CE6E3800A0FAE8 /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4D00AF2D17CE6E3800A0FAE8 /* MBConnectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MBConnectionViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		4D00AF2E17CE6E3800A0FAE8 /* MBConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MBConnectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4D00AF3017CE6E3800A0FAE8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D00AF3617CE6E3800A0FAE8 /* HelloMyoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloMyoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00AF3717CE6E3800A0FAE8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -62,6 +65,11 @@
 		4D00AF4117CE6E3800A0FAE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D00AF4317CE6E3800A0FAE8 /* HelloMyoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloMyoTests.m; sourceTree = "<group>"; };
 		4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5087118D19C4848D001FBADE /* MBUserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserInterface.h; sourceTree = "<group>"; };
+		5087118E19C4848D001FBADE /* MBUserInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserInterface.m; sourceTree = "<group>"; };
+		5087119119C4972A001FBADE /* MBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMainViewController.h; sourceTree = "<group>"; };
+		5087119219C4972A001FBADE /* MBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMainViewController.m; sourceTree = "<group>"; };
+		5087119319C4972A001FBADE /* MBMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBMainViewController.xib; sourceTree = "<group>"; };
 		54EA8FC719BFD94500D792A0 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyoKit.framework; path = ../MyoKit.framework; sourceTree = "<group>"; };
 		62946F9FBD0442FFB0C78872 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4AECE152C34360A4E49999 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -131,16 +139,20 @@
 		4D00AF1E17CE6E3800A0FAE8 /* HelloMyo */ = {
 			isa = PBXGroup;
 			children = (
-				4D00AF2717CE6E3800A0FAE8 /* TLHMAppDelegate.h */,
-				4D00AF2817CE6E3800A0FAE8 /* TLHMAppDelegate.m */,
-				4D00AF2D17CE6E3800A0FAE8 /* TLHMViewController.h */,
-				4D00AF2E17CE6E3800A0FAE8 /* TLHMViewController.m */,
-				37990E3F1888304E00A4E063 /* TLHMViewController.xib */,
+				4D00AF2717CE6E3800A0FAE8 /* MBAppDelegate.h */,
+				4D00AF2817CE6E3800A0FAE8 /* MBAppDelegate.m */,
+				4D00AF2D17CE6E3800A0FAE8 /* MBConnectionViewController.h */,
+				4D00AF2E17CE6E3800A0FAE8 /* MBConnectionViewController.m */,
+				37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */,
 				4D00AF3017CE6E3800A0FAE8 /* Images.xcassets */,
+				5087119019C4849A001FBADE /* Resources */,
 				4D00AF1F17CE6E3800A0FAE8 /* Supporting Files */,
 				378A627319C42D2C002222A2 /* BTPickerController.h */,
 				378A627419C42D2C002222A2 /* BTPickerController.m */,
 				378A627519C42D2C002222A2 /* BTPickerController.xib */,
+				5087119119C4972A001FBADE /* MBMainViewController.h */,
+				5087119219C4972A001FBADE /* MBMainViewController.m */,
+				5087119319C4972A001FBADE /* MBMainViewController.xib */,
 			);
 			path = HelloMyo;
 			sourceTree = "<group>";
@@ -172,6 +184,15 @@
 				4D00AF4017CE6E3800A0FAE8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5087119019C4849A001FBADE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5087118D19C4848D001FBADE /* MBUserInterface.h */,
+				5087118E19C4848D001FBADE /* MBUserInterface.m */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +282,9 @@
 			files = (
 				4D00AF3117CE6E3800A0FAE8 /* Images.xcassets in Resources */,
 				4D00AF2317CE6E3800A0FAE8 /* InfoPlist.strings in Resources */,
-				37990E401888304E00A4E063 /* TLHMViewController.xib in Resources */,
+				37990E401888304E00A4E063 /* MBConnectionViewController.xib in Resources */,
 				378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */,
+				5087119519C4972A001FBADE /* MBMainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,8 +336,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D00AF2F17CE6E3800A0FAE8 /* TLHMViewController.m in Sources */,
-				4D00AF2917CE6E3800A0FAE8 /* TLHMAppDelegate.m in Sources */,
+				4D00AF2F17CE6E3800A0FAE8 /* MBConnectionViewController.m in Sources */,
+				5087118F19C4848D001FBADE /* MBUserInterface.m in Sources */,
+				5087119419C4972A001FBADE /* MBMainViewController.m in Sources */,
+				4D00AF2917CE6E3800A0FAE8 /* MBAppDelegate.m in Sources */,
 				4D00AF2517CE6E3800A0FAE8 /* main.m in Sources */,
 				378A627619C42D2C002222A2 /* BTPickerController.m in Sources */,
 			);

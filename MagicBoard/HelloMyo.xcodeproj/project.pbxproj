@@ -25,7 +25,6 @@
 		4D00AF4417CE6E3800A0FAE8 /* HelloMyoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF4317CE6E3800A0FAE8 /* HelloMyoTests.m */; };
 		4D4EEBF717E226B900CAA2AF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */; };
 		5087118F19C4848D001FBADE /* MBUserInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087118E19C4848D001FBADE /* MBUserInterface.m */; };
-		508711FD19C4CBBA001FBADE /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 508711FC19C4CBBA001FBADE /* add.png */; };
 		54EA8FC819BFD94500D792A0 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EA8FC719BFD94500D792A0 /* MyoKit.framework */; };
 		DA73939BCD5C4285A74AA9AA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62946F9FBD0442FFB0C78872 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -66,7 +65,6 @@
 		4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5087118D19C4848D001FBADE /* MBUserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserInterface.h; sourceTree = "<group>"; };
 		5087118E19C4848D001FBADE /* MBUserInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserInterface.m; sourceTree = "<group>"; };
-		508711FC19C4CBBA001FBADE /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = ../../../../Downloads/icon_8298/add.png; sourceTree = "<group>"; };
 		54EA8FC719BFD94500D792A0 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyoKit.framework; path = ../MyoKit.framework; sourceTree = "<group>"; };
 		62946F9FBD0442FFB0C78872 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4AECE152C34360A4E49999 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				4D00AF2017CE6E3800A0FAE8 /* HelloMyo-Info.plist */,
-				508711FC19C4CBBA001FBADE /* add.png */,
 				4D00AF2117CE6E3800A0FAE8 /* InfoPlist.strings */,
 				4D00AF2417CE6E3800A0FAE8 /* main.m */,
 				4D00AF2617CE6E3800A0FAE8 /* HelloMyo-Prefix.pch */,
@@ -278,7 +275,6 @@
 				4D00AF3117CE6E3800A0FAE8 /* Images.xcassets in Resources */,
 				4D00AF2317CE6E3800A0FAE8 /* InfoPlist.strings in Resources */,
 				37990E401888304E00A4E063 /* MBConnectionViewController.xib in Resources */,
-				508711FD19C4CBBA001FBADE /* add.png in Resources */,
 				378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

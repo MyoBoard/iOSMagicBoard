@@ -10,8 +10,9 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "TLHMViewController.h"
 
-@interface BTPickerController : UITableViewController<CBCentralManagerDelegate>
+@interface BTPickerController : UITableViewController
 
-- (id)initWithParent:(TLHMViewController*) parent;
+- (id)initWithParent:(TLHMViewController*) parent andBTManager:(CBCentralManager*) manager;
+- (void)addPeripheral:(CBPeripheral*) peripheral;
 
 @end

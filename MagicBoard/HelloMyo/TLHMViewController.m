@@ -9,6 +9,7 @@
 #import "TLHMViewController.h"
 #import <MyoKit/MyoKit.h>
 #import "BTPickerController.h"
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface TLHMViewController ()
 
@@ -16,7 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *boardButton;
 @property (nonatomic) float trueAccel;
 @property (nonatomic) float effectiveAccel;
-@property (strong, nonatomic) TLMPose *currentPose;
+@property TLMPose *currentPose;
+@property CBCentralManager *btManager;
+@property BTPickerController *btPicker;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -205,12 +208,50 @@
 }
 
 - (IBAction)didTapBoard:(id)sender {
-    UITableViewController *controller = [[BTPickerController alloc] initWithParent:self];
-    [self presentViewController:controller animated:YES completion:nil];
+    self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.btPicker = [[BTPickerController alloc] initWithParent:self andBTManager:self.btManager];
+    [self presentViewController:self.btPicker animated:YES completion:nil];
 }
 
 - (void)foundBoard:(CBPeripheral*)board {
     NSLog(@"tapped %@", board.name);
+    [self.btManager connectPeripheral:board options:nil];
+}
+
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"peripheral connected");
+}
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    
+}
+
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    
+}
+
+- (void)centralManager:(CBCentralManager *)central
+ didDiscoverPeripheral:(CBPeripheral *)peripheral
+     advertisementData:(NSDictionary *)advertisementData
+                  RSSI:(NSNumber *)RSSI {
+    //NSLog(@"Discovered %@", peripheral.name);
+    [self.btPicker addPeripheral:peripheral];
+}
+
+- (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals {
+    
+}
+
+- (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals {
+    
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+    
+}
+
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
+    
 }
 
 @end

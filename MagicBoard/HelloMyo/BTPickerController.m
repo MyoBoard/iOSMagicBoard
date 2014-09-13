@@ -20,10 +20,11 @@
 
 @implementation BTPickerController
 
-- (id)initWithParent:(TLHMViewController*) parent {
+- (id)initWithParent:(TLHMViewController*) parent andBTManager:(CBCentralManager *)manager {
     self = [super init];
     
     self.parent = parent;
+    self.btManager = manager;
     
     return self;
 }
@@ -40,7 +41,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    //self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
     [self.btManager scanForPeripheralsWithServices:nil options:nil];
 }
 
@@ -75,6 +76,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.btManager stopScan];
     [self.parent foundBoard:[self.peripherals objectAtIndex:indexPath.row]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -124,42 +126,9 @@
 
 */
 
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
-    
-}
-
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    
-}
-
-- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    
-}
-
-- (void)centralManager:(CBCentralManager *)central
- didDiscoverPeripheral:(CBPeripheral *)peripheral
-     advertisementData:(NSDictionary *)advertisementData
-                  RSSI:(NSNumber *)RSSI {
-    
+- (void)addPeripheral:(CBPeripheral*)peripheral {
     [self.peripherals addObject:peripheral];
     [self.tableView reloadData];
-    //NSLog(@"Discovered %@", peripheral.name);
-}
-
-- (void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals {
-    
-}
-
-- (void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals {
-    
-}
-
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    
-}
-
-- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
-    
 }
 
 @end

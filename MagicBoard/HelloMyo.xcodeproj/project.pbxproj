@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		378A627619C42D2C002222A2 /* BTPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 378A627419C42D2C002222A2 /* BTPickerController.m */; };
+		378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 378A627519C42D2C002222A2 /* BTPickerController.xib */; };
 		37990E401888304E00A4E063 /* TLHMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37990E3F1888304E00A4E063 /* TLHMViewController.xib */; };
 		4D00AF1917CE6E3800A0FAE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */; };
 		4D00AF1B17CE6E3800A0FAE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1A17CE6E3800A0FAE8 /* CoreGraphics.framework */; };
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		378A627319C42D2C002222A2 /* BTPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPickerController.h; sourceTree = "<group>"; };
+		378A627419C42D2C002222A2 /* BTPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPickerController.m; sourceTree = "<group>"; };
+		378A627519C42D2C002222A2 /* BTPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTPickerController.xib; sourceTree = "<group>"; };
 		37990E3F1888304E00A4E063 /* TLHMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLHMViewController.xib; sourceTree = "<group>"; };
 		4D00AF1517CE6E3800A0FAE8 /* HelloMyo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloMyo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,6 +132,9 @@
 				37990E3F1888304E00A4E063 /* TLHMViewController.xib */,
 				4D00AF3017CE6E3800A0FAE8 /* Images.xcassets */,
 				4D00AF1F17CE6E3800A0FAE8 /* Supporting Files */,
+				378A627319C42D2C002222A2 /* BTPickerController.h */,
+				378A627419C42D2C002222A2 /* BTPickerController.m */,
+				378A627519C42D2C002222A2 /* BTPickerController.xib */,
 			);
 			path = HelloMyo;
 			sourceTree = "<group>";
@@ -246,6 +254,7 @@
 				4D00AF3117CE6E3800A0FAE8 /* Images.xcassets in Resources */,
 				4D00AF2317CE6E3800A0FAE8 /* InfoPlist.strings in Resources */,
 				37990E401888304E00A4E063 /* TLHMViewController.xib in Resources */,
+				378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +276,7 @@
 				4D00AF2F17CE6E3800A0FAE8 /* TLHMViewController.m in Sources */,
 				4D00AF2917CE6E3800A0FAE8 /* TLHMAppDelegate.m in Sources */,
 				4D00AF2517CE6E3800A0FAE8 /* main.m in Sources */,
+				378A627619C42D2C002222A2 /* BTPickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

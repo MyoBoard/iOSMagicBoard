@@ -8,7 +8,7 @@
 
 #import "TLHMViewController.h"
 #import <MyoKit/MyoKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BTPickerController.h"
 
 @interface TLHMViewController ()
 
@@ -17,7 +17,6 @@
 @property (nonatomic) float trueAccel;
 @property (nonatomic) float effectiveAccel;
 @property (strong, nonatomic) TLMPose *currentPose;
-@property (strong, nonatomic) CBCentralManager *btManager;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -206,11 +205,12 @@
 }
 
 - (IBAction)didTapBoard:(id)sender {
-    NSLog(@"board");
-    
-    self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-    [self.btManager scanForPeripheralsWithServices:nil options:nil];
-    
+    UITableViewController *controller = [[BTPickerController alloc] initWithParent:self];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)foundBoard:(CBPeripheral*)board {
+    NSLog(@"tapped %@", board.name);
 }
 
 @end

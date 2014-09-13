@@ -41,7 +41,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o1i-Lz-vD8" userLabel="accelLabel">
-                    <rect key="frame" x="92" y="102" width="137" height="76"/>
+                    <rect key="frame" x="20" y="102" width="280" height="76"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="90"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

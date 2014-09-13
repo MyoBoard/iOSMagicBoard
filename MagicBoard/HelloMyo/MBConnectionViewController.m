@@ -22,6 +22,8 @@
 @property TLMPose *currentPose;
 @property CBCentralManager *btManager;
 @property BTPickerController *btPicker;
+@property CBPeripheral *periph;
+@property CBCharacteristic *characteristic;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -171,9 +173,23 @@
 - (void)setAcceleration:(float)accel {
     self.trueAccel = accel;
     if(self.currentPose.type == TLMPoseTypeFist) {
-        // TODO send to bluetooth
         self.effectiveAccel = accel;
-        self.accelLabel.text = [NSString stringWithFormat:@"%f", accel];
+        if(self.characteristic) {
+            /*NSMutableData* data = [NSMutableData dataWithCapacity:0];
+            float z = self.effectiveAccel;
+            [data appendBytes:&z length:sizeof(float)];
+            NSLog(@"data = %@", data);*/
+            /*NSNumber* num = [NSNumber numberWithFloat:self.effectiveAccel];
+            NSData* data = [NSData dataWithBytes:&num length:sizeof(float)];*/
+            NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel];
+            NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"data = %@", data);
+            [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+        }
+        NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
+        [fmt setPositiveFormat:@"0.##"];
+        self.accelLabel.text = [fmt stringFromNumber:[NSNumber numberWithFloat:accel]];
+        //self.accelLabel.text = [NSString stringWithFormat:@"%f", accel];
     } else {
         self.effectiveAccel = 0.0;
         self.accelLabel.text = @"0.0";
@@ -239,7 +255,9 @@
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    
+    NSLog(@"peripheral disconnected");
+    self.periph = nil;
+    self.characteristic = nil;
 }
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -280,26 +298,24 @@
     
     for (CBService *service in peripheral.services) {
         NSLog(@"Discovered service %@", service.UUID.UUIDString);
-        if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
-        //if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
+        //if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
+        if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
         //if([service.UUID.UUIDString isEqualToString:@"DA2B84F1-6279-48DE-BDC0-AFBEA0226079"]) {
             NSLog(@"match");
-            //break;
+            [peripheral discoverCharacteristics:nil forService:service];
+            break;
         } else {
             NSLog(@"no match");
         }
-        [peripheral discoverCharacteristics:nil forService:service];
+        //[peripheral discoverCharacteristics:nil forService:service];
     }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral
 didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error {
-    
-
-    
     NSLog(@"service %@", service.UUID.UUIDString);
-    for (id characteristic in service.characteristics) {
+    /*for (id characteristic in service.characteristics) {
         
         if([characteristic isMemberOfClass:[CBCharacteristic class]]){
             CBCharacteristic *casted = (CBCharacteristic*)characteristic;
@@ -311,8 +327,13 @@ didDiscoverCharacteristicsForService:(CBService *)service
         }
         
         //NSLog(@"Discovered characteristic %@", characteristic);
+    }*/
+    if(!self.characteristic) {
+        self.periph = peripheral;
+        self.characteristic = [service.characteristics objectAtIndex:0];
+        //NSLog(@"writing to characteristic %@", self.characteristic.description);
+        //[peripheral writeValue:[@"5" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
     }
 }
-
 
 @end

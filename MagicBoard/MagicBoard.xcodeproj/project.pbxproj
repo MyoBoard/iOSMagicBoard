@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3797BD6A19C3DD5600B99CD6 /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3797BD6919C3DD5600B99CD6 /* MBViewController.m */; };
-		3797BD6C19C3DDA500B99CD6 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3797BD6B19C3DDA500B99CD6 /* MyoKit.framework */; };
 		3797BD6E19C3DDD100B99CD6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3797BD6D19C3DDD100B99CD6 /* CoreBluetooth.framework */; };
 		3797BD7019C3DDD800B99CD6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3797BD6F19C3DDD800B99CD6 /* SystemConfiguration.framework */; };
+		3797BD7219C3E16E00B99CD6 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3797BD7119C3E16E00B99CD6 /* MyoKit.framework */; };
 		5087110819C3D969001FBADE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087110719C3D969001FBADE /* Foundation.framework */; };
 		5087110A19C3D969001FBADE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087110919C3D969001FBADE /* CoreGraphics.framework */; };
 		5087110C19C3D969001FBADE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087110B19C3D969001FBADE /* UIKit.framework */; };
@@ -42,6 +42,7 @@
 		3797BD6B19C3DDA500B99CD6 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyoKit.framework; path = "../../../../Downloads/myo-ios-sdk-beta1/MyoKit.framework"; sourceTree = "<group>"; };
 		3797BD6D19C3DDD100B99CD6 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		3797BD6F19C3DDD800B99CD6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3797BD7119C3E16E00B99CD6 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyoKit.framework; sourceTree = "<group>"; };
 		5087110419C3D969001FBADE /* MagicBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5087110719C3D969001FBADE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5087110919C3D969001FBADE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,7 +69,7 @@
 			files = (
 				3797BD7019C3DDD800B99CD6 /* SystemConfiguration.framework in Frameworks */,
 				3797BD6E19C3DDD100B99CD6 /* CoreBluetooth.framework in Frameworks */,
-				3797BD6C19C3DDA500B99CD6 /* MyoKit.framework in Frameworks */,
+				3797BD7219C3E16E00B99CD6 /* MyoKit.framework in Frameworks */,
 				5087110A19C3D969001FBADE /* CoreGraphics.framework in Frameworks */,
 				5087110C19C3D969001FBADE /* UIKit.framework in Frameworks */,
 				5087110819C3D969001FBADE /* Foundation.framework in Frameworks */,
@@ -110,6 +111,7 @@
 		5087110619C3D969001FBADE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3797BD7119C3E16E00B99CD6 /* MyoKit.framework */,
 				3797BD6F19C3DDD800B99CD6 /* SystemConfiguration.framework */,
 				3797BD6D19C3DDD100B99CD6 /* CoreBluetooth.framework */,
 				3797BD6B19C3DDA500B99CD6 /* MyoKit.framework */,
@@ -392,6 +394,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/greg/Downloads/myo-ios-sdk-beta1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MagicBoard/MagicBoard-Prefix.pch";
@@ -409,6 +412,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/greg/Downloads/myo-ios-sdk-beta1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MagicBoard/MagicBoard-Prefix.pch";

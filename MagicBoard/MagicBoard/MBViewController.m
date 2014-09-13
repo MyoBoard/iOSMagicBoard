@@ -18,8 +18,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //[self pushMyoSettings];
+    NSLog(@"presenting settings");
+    [self pushMyoSettings];
+    //[self.lbl setText:@"hi"];
+    //[self modalPresentMyoSettings];
+    //[self attachToAnyMyo];
+    /*[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceivePoseChange:)
+                                                 name:TLMMyoDidReceivePoseChangedNotification
+                                               object:nil];*/
 }
+
+/*- (void)didReceivePoseChange:(NSNotification*)notification {
+    TLMPose *pose = notification.userInfo[kTLMKeyPose];
+    
+    NSLog(@"got pose change");
+}*/
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -40,7 +54,30 @@
 - (void)pushMyoSettings {
     TLMSettingsViewController *settings = [[TLMSettingsViewController alloc] init];
     
-    [self.navigationController pushViewController:settings animated:YES];
+    [self pushViewController:settings animated:YES];
+}
+
+// Presenting modally
+- (void)modalPresentMyoSettings {
+    UINavigationController *settings = [TLMSettingsViewController settingsInNavigationController];
+    
+    [self presentViewController:settings animated:YES completion:nil];
+}
+
+// Connecting to a Myo with attachToAny
+- (void)attachToAnyMyo {
+    [[TLMHub sharedHub] attachToAny];
+}
+
+// Connecting to a Myo with attachToAdjacent
+- (void)attachToAdjacentMyo {
+    [[TLMHub sharedHub] attachToAdjacent];
+}
+
+// Connecting to a Myo by its identifier
+// The identifier for a Myo can be retrieved from the TLMMyo's identifier property
+- (void)attachToMyoByIdentifier:(NSUUID *)identifier {
+    [[TLMHub sharedHub] attachByIdentifier:identifier];
 }
 
 @end

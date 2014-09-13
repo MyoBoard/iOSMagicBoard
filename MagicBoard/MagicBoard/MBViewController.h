@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MBViewController : UIViewController
+@interface MBViewController : UINavigationController
+
+//@property (nonatomic) IBOutlet UILabel* lbl;
 
 @end

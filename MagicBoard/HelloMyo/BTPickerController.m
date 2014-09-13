@@ -8,19 +8,19 @@
 
 #import "BTPickerController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "TLHMViewController.h"
+#import "MBConnectionViewController.h"
 
 @interface BTPickerController ()
 
 @property CBCentralManager *btManager;
 @property NSMutableArray *peripherals;
-@property TLHMViewController *parent;
+@property MBConnectionViewController *parent;
 
 @end
 
 @implementation BTPickerController
 
-- (id)initWithParent:(TLHMViewController*) parent andBTManager:(CBCentralManager *)manager {
+- (id)initWithParent:(MBConnectionViewController*) parent andBTManager:(CBCentralManager *)manager {
     self = [super init];
     
     self.parent = parent;

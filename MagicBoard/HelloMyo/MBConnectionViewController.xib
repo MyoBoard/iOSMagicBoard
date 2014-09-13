@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TLHMViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MBConnectionViewController">
             <connections>
                 <outlet property="accelLabel" destination="o1i-Lz-vD8" id="id4-cN-ckg"/>
                 <outlet property="boardButton" destination="ebl-T4-1fC" id="2fO-ih-E78"/>

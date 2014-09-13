@@ -6,12 +6,13 @@
 //  Distributed under the Myo SDK license agreement. See LICENSE.txt.
 //
 
-#import "TLHMViewController.h"
+#import "MBConnectionViewController.h"
 #import <MyoKit/MyoKit.h>
 #import "BTPickerController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "MBUserInterface.h"
 
-@interface TLHMViewController ()
+@interface MBConnectionViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
 @property (weak, nonatomic) IBOutlet UIButton *boardButton;
@@ -25,19 +26,23 @@
 
 @end
 
-@implementation TLHMViewController
+@implementation MBConnectionViewController
 
 #pragma mark - View Lifecycle
 
 - (id)init {
     // Initialize our view controller with a nib (see TLHMViewController.xib).
-    self = [super initWithNibName:@"TLHMViewController" bundle:nil];
+    self = [super initWithNibName:@"MBConnectionViewController" bundle:nil];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelConnect)];
+    cancelButton.tintColor = [UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+        
     [self.boardButton setEnabled:NO];
     [self.boardButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 
@@ -200,10 +205,18 @@
     }
 }
 
+-(void)cancelConnect
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 - (IBAction)didTapSettings:(id)sender {
     // Note that when the settings view controller is presented to the user, it must be in a UINavigationController.
     UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
     // Present the settings view controller modally.
+    controller.navigationBar.translucent = NO;
+    controller.navigationBar.barTintColor = kMyoBlue;
     [self presentViewController:controller animated:YES completion:nil];
 }
 

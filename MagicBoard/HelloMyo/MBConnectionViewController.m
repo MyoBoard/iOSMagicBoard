@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *boostedButton;
 @property (nonatomic) float trueAccel;
 @property (nonatomic) float effectiveAccel;
+@property (nonatomic) float originalRoll;
+@property (nonatomic) BOOL originalRollSet;
 @property TLMPose *currentPose;
 @property CBCentralManager *btManager;
 @property BTPickerController *btPicker;
@@ -36,6 +38,7 @@
 - (id)init {
     // Initialize our view controller with a nib (see TLHMViewController.xib).
     self = [super initWithNibName:@"MBConnectionViewController" bundle:nil];
+    self.originalRollSet = NO;
     return self;
 }
 
@@ -142,6 +145,11 @@
     
     //NSLog(@"(%f, %f, %f)", angles.pitch.degrees, angles.yaw.degrees, angles.roll.degrees);
     [self setAcceleration:angles.roll.degrees];
+    
+    if(!self.originalRollSet) {
+        self.originalRollSet = YES;
+        self.originalRoll = angles.roll.degrees;
+    }
 
     /*// Next, we want to apply a rotation and perspective transformation based on the pitch, yaw, and roll.
     CATransform3D rotationAndPerspectiveTransform = CATransform3DConcat(CATransform3DConcat(CATransform3DRotate (CATransform3DIdentity, angles.pitch.radians, -1.0, 0.0, 0.0), CATransform3DRotate(CATransform3DIdentity, angles.yaw.radians, 0.0, 1.0, 0.0)), CATransform3DRotate(CATransform3DIdentity, angles.roll.radians, 0.0, 0.0, -1.0));
@@ -175,13 +183,7 @@
     if(self.currentPose.type == TLMPoseTypeFist) {
         self.effectiveAccel = accel;
         if(self.characteristic) {
-            /*NSMutableData* data = [NSMutableData dataWithCapacity:0];
-            float z = self.effectiveAccel;
-            [data appendBytes:&z length:sizeof(float)];
-            NSLog(@"data = %@", data);*/
-            /*NSNumber* num = [NSNumber numberWithFloat:self.effectiveAccel];
-            NSData* data = [NSData dataWithBytes:&num length:sizeof(float)];*/
-            NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel];
+            NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel - self.originalRoll];
             NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSLog(@"data = %@", data);
             [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
@@ -189,9 +191,12 @@
         NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
         [fmt setPositiveFormat:@"0.##"];
         self.accelLabel.text = [fmt stringFromNumber:[NSNumber numberWithFloat:accel]];
-        //self.accelLabel.text = [NSString stringWithFormat:@"%f", accel];
     } else {
         self.effectiveAccel = 0.0;
+        NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel];
+        NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@"data = %@", data);
+        [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
         self.accelLabel.text = @"0.0";
     }
 }
@@ -290,44 +295,24 @@
 
 - (void)peripheral:(CBPeripheral *)peripheral
     didDiscoverServices:(NSError *)error {
-    // identifier = AE7750C2-A13A-4AB8-AD7F-6BCFC11FBD98
     // UUID = 08C8C7A0-6CC5-11E3-981F-0800200C9A66
-    
-    // identifier = AE7750C2-A13A-4AB8-AD7F-6BCFC11FBD98
-    // D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20
+    // UUID = D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20
     
     for (CBService *service in peripheral.services) {
-        NSLog(@"Discovered service %@", service.UUID.UUIDString);
-        //if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
         if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
-        //if([service.UUID.UUIDString isEqualToString:@"DA2B84F1-6279-48DE-BDC0-AFBEA0226079"]) {
             NSLog(@"match");
             [peripheral discoverCharacteristics:nil forService:service];
             break;
         } else {
             NSLog(@"no match");
         }
-        //[peripheral discoverCharacteristics:nil forService:service];
     }
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral
 didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error {
-    NSLog(@"service %@", service.UUID.UUIDString);
-    /*for (id characteristic in service.characteristics) {
-        
-        if([characteristic isMemberOfClass:[CBCharacteristic class]]){
-            CBCharacteristic *casted = (CBCharacteristic*)characteristic;
-            [peripheral writeValue:[@"5" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:casted type:CBCharacteristicWriteWithResponse];
-            NSLog(@"UUID = %@, VALUE = %@", casted.UUID.UUIDString, casted.value);
-        }
-        else{
-            NSLog(@"noo");
-        }
-        
-        //NSLog(@"Discovered characteristic %@", characteristic);
-    }*/
+    // store first characteristic encountered
     if(!self.characteristic) {
         self.periph = peripheral;
         self.characteristic = [service.characteristics objectAtIndex:0];

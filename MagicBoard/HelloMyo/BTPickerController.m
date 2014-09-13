@@ -78,7 +78,8 @@
 {
     [self.btManager stopScan];
     [self.parent foundBoard:[self.peripherals objectAtIndex:indexPath.row]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

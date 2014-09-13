@@ -12,5 +12,7 @@
 @interface MBConnectionViewController : UIViewController<CBCentralManagerDelegate, CBPeripheralDelegate>
 
 - (void)foundBoard:(CBPeripheral*)board;
+@property (weak, nonatomic) IBOutlet UILabel *myoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *boostedLabel;
 
 @end

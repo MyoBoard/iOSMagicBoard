@@ -14,8 +14,6 @@
 		5087111419C3D969001FBADE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087111319C3D969001FBADE /* main.m */; };
 		5087111819C3D969001FBADE /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087111719C3D969001FBADE /* MBAppDelegate.m */; };
 		5087111B19C3D96A001FBADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5087111919C3D96A001FBADE /* Main.storyboard */; };
-		5087111E19C3D96A001FBADE /* MBMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087111D19C3D96A001FBADE /* MBMasterViewController.m */; };
-		5087112119C3D96A001FBADE /* MBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087112019C3D96A001FBADE /* MBDetailViewController.m */; };
 		5087112319C3D96A001FBADE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5087112219C3D96A001FBADE /* Images.xcassets */; };
 		5087112A19C3D96A001FBADE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087112919C3D96A001FBADE /* XCTest.framework */; };
 		5087112B19C3D96A001FBADE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087110719C3D969001FBADE /* Foundation.framework */; };
@@ -50,10 +48,6 @@
 		5087111619C3D969001FBADE /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAppDelegate.h; sourceTree = "<group>"; };
 		5087111719C3D969001FBADE /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
 		5087111A19C3D96A001FBADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5087111C19C3D96A001FBADE /* MBMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBMasterViewController.h; sourceTree = "<group>"; };
-		5087111D19C3D96A001FBADE /* MBMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBMasterViewController.m; sourceTree = "<group>"; };
-		5087111F19C3D96A001FBADE /* MBDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBDetailViewController.h; sourceTree = "<group>"; };
-		5087112019C3D96A001FBADE /* MBDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBDetailViewController.m; sourceTree = "<group>"; };
 		5087112219C3D96A001FBADE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5087112819C3D96A001FBADE /* MagicBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5087112919C3D96A001FBADE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -134,10 +128,6 @@
 				5087111619C3D969001FBADE /* MBAppDelegate.h */,
 				5087111719C3D969001FBADE /* MBAppDelegate.m */,
 				5087111919C3D96A001FBADE /* Main.storyboard */,
-				5087111C19C3D96A001FBADE /* MBMasterViewController.h */,
-				5087111D19C3D96A001FBADE /* MBMasterViewController.m */,
-				5087111F19C3D96A001FBADE /* MBDetailViewController.h */,
-				5087112019C3D96A001FBADE /* MBDetailViewController.m */,
 				5087112219C3D96A001FBADE /* Images.xcassets */,
 				5087110E19C3D969001FBADE /* Supporting Files */,
 			);
@@ -271,8 +261,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5087112119C3D96A001FBADE /* MBDetailViewController.m in Sources */,
-				5087111E19C3D96A001FBADE /* MBMasterViewController.m in Sources */,
 				5087111419C3D969001FBADE /* main.m in Sources */,
 				5087111819C3D969001FBADE /* MBAppDelegate.m in Sources */,
 			);
@@ -489,6 +477,7 @@
 				5087113B19C3D96A001FBADE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5087113C19C3D96A001FBADE /* Build configuration list for PBXNativeTarget "MagicBoardTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +486,7 @@
 				5087113E19C3D96A001FBADE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

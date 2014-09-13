@@ -29,7 +29,6 @@
     navigationController.navigationBar.tintColor   = [UIColor whiteColor];
     navigationController.navigationBar.translucent = NO;
     navigationController.navigationBar.shadowImage = nil;
-    
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = navigationController;

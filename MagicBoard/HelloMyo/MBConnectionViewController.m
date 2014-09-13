@@ -135,9 +135,6 @@
     // Create Euler angles from the quaternion of the orientation.
     TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
     
-    /*NSLog(@"pitch: %@", angles.pitch);
-    NSLog(@"yaw: %@", angles.yaw);
-    NSLog(@"roll: %@", angles.roll);*/
     //NSLog(@"(%f, %f, %f)", angles.pitch.degrees, angles.yaw.degrees, angles.roll.degrees);
     [self setAcceleration:angles.roll.degrees];
 
@@ -181,6 +178,7 @@
 }
 
 - (void)didReceivePoseChange:(NSNotification *)notification {
+    //NSLog(@"pose change");
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
     self.currentPose = pose;
@@ -193,12 +191,12 @@
         case TLMPoseTypeWaveOut:
         case TLMPoseTypeFingersSpread:
         case TLMPoseTypeThumbToPinky:
-            NSLog(@"neutral pose");
+            //NSLog(@"neutral pose");
             self.effectiveAccel = 0.0;
             self.accelLabel.text = @"0.0";
             break;
         case TLMPoseTypeFist:
-            NSLog(@"fist pose");
+            //NSLog(@"fist pose");
             self.effectiveAccel = self.trueAccel;
             self.accelLabel.text = [NSString stringWithFormat:@"%f", self.trueAccel];
             break;
@@ -233,6 +231,8 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"peripheral connected");
+    peripheral.delegate = self;
+    [peripheral discoverServices:nil];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -266,5 +266,38 @@
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
     
 }
+
+- (void)peripheral:(CBPeripheral *)peripheral
+    didDiscoverServices:(NSError *)error {
+    // identifier = AE7750C2-A13A-4AB8-AD7F-6BCFC11FBD98
+    // UUID = 08C8C7A0-6CC5-11E3-981F-0800200C9A66
+    
+    // identifier = AE7750C2-A13A-4AB8-AD7F-6BCFC11FBD98
+    // D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20
+    
+    for (CBService *service in peripheral.services) {
+        NSLog(@"Discovered service %@", service);
+        //if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
+        if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
+        //if([service.UUID.UUIDString isEqualToString:@"DA2B84F1-6279-48DE-BDC0-AFBEA0226079"]) {
+            NSLog(@"match");
+            [peripheral discoverCharacteristics:nil forService:service];
+            break;
+        } else {
+            NSLog(@"no match");
+        }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral
+didDiscoverCharacteristicsForService:(CBService *)service
+             error:(NSError *)error {
+    
+    NSLog(@"service %@", service);
+    for (CBCharacteristic *characteristic in service.characteristics) {
+        NSLog(@"Discovered characteristic %@", characteristic);
+    }
+}
+
 
 @end

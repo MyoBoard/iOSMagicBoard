@@ -46,6 +46,7 @@
     self.myoLabel.textColor      = kLightGrey;
     self.boostedLabel.textColor  = kLightGrey;
     
+//    self.navigationItem.titleView = [UITextView alloc]in
     // Data notifications are received through NSNotificationCenter.
     // Posted whenever a TLMMyo connects
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -211,17 +212,17 @@
 
 - (IBAction)didTapSettings:(id)sender {
     // Note that when the settings view controller is presented to the user, it must be in a UINavigationController.
-    UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
+    TLMSettingsViewController *controller = [[TLMSettingsViewController alloc]init];
     // Present the settings view controller modally.
-    controller.navigationBar.translucent = NO;
-    controller.navigationBar.barTintColor = kMyoBlue;
-    [self presentViewController:controller animated:YES completion:nil];
+//    controller.navigationBar.translucent = NO;
+//    controller.navigationBar.barTintColor = kMyoBlue;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)didTapBoard:(id)sender {
     self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
     self.btPicker = [[BTPickerController alloc] initWithParent:self andBTManager:self.btManager];
-    [self presentViewController:self.btPicker animated:YES completion:nil];
+    [self.navigationController pushViewController:self.btPicker animated:YES];
 }
 
 - (void)foundBoard:(CBPeripheral*)board {

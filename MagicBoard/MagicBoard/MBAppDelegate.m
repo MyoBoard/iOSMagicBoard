@@ -13,8 +13,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    [TLMHub sharedHub];
+    // Instantiate the hub using the singleton accessor, and set the applicationIdentifier of our application.
+    [[TLMHub sharedHub] setApplicationIdentifier:@"com.myoboard.magic"];
+    // Call attachToAdjacent to begin looking for Myos to pair with.
+    [[TLMHub sharedHub] attachToAdjacent];
+
     return YES;
 }
 							

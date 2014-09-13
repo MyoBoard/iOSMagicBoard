@@ -35,9 +35,9 @@
     connectButton.tintColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = connectButton;
 
-//    GRKCircularGraphView *graph = [[GRKCircularGraphView alloc] initWithFrame:CGRectMake(0,20,40,40)];
-//    graph.tintColor = kMyoBlue;
-//    graph.percent = 0.42f;
+    self.accelLabel.textColor = kMyoBlue;
+    self.myoLabel.textColor = kLightGrey;
+    self.boardLabel.textColor = kLightGrey;
 }
 
 - (void)didReceiveMemoryWarning

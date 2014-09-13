@@ -10,5 +10,8 @@
 
 @interface MBMainViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *accelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *myoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *boardLabel;
 
 @end

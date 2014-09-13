@@ -8,13 +8,16 @@
 
 #import "TLHMViewController.h"
 #import <MyoKit/MyoKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface TLHMViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
+@property (weak, nonatomic) IBOutlet UIButton *boardButton;
 @property (nonatomic) float trueAccel;
 @property (nonatomic) float effectiveAccel;
 @property (strong, nonatomic) TLMPose *currentPose;
+@property (strong, nonatomic) CBCentralManager *btManager;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -32,6 +35,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.boardButton setEnabled:NO];
+    [self.boardButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 
     // Data notifications are received through NSNotificationCenter.
     // Posted whenever a TLMMyo connects
@@ -69,7 +75,6 @@
                                              selector:@selector(didReceivePoseChange:)
                                                  name:TLMMyoDidReceivePoseChangedNotification
                                                object:nil];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,33 +85,21 @@
 #pragma mark - NSNotificationCenter Methods
 
 - (void)didConnectDevice:(NSNotification *)notification {
-    // Align our label to be in the center of the view.
-    //[self.helloLabel setCenter:self.view.center];
-    //[self.accelLabel setBounds:CGRectMake(10, 10, 100, 50)];
-    [self.accelLabel setCenter:self.view.center];
     self.accelLabel.text = @"Unknown";
+    
+    [self.boardButton setEnabled:YES];
 
     // Set the text of the armLabel to "Perform the Sync Gesture"
     /*self.armLabel.text = @"Perform the Sync Gesture";
 
     // Set the text of our helloLabel to be "Hello Myo".
-    self.helloLabel.text = @"Hello Myo";
-
-    // Show the acceleration progress bar
-    [self.accelerationProgressBar setHidden:NO];
-    [self.accelerationLabel setHidden:NO];*/
+    self.helloLabel.text = @"Hello Myo";*/
 }
 
 - (void)didDisconnectDevice:(NSNotification *)notification {
-    // Remove the text of our label when the Myo has disconnected.
-    /*self.helloLabel.text = @"";
-    self.armLabel.text = @"";
-
-    // Hide the acceleration progress bar
-    [self.accelerationProgressBar setHidden:YES];
-    [self.accelerationLabel setHidden:YES];*/
-    
-    self.accelLabel.text = @"Unknown";
+    self.accelLabel.text = @"";
+    [self.boardButton setEnabled:NO];
+    [self.boardButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 }
 
 - (void)didRecognizeArm:(NSNotification *)notification {
@@ -171,6 +164,7 @@
 - (void)setAcceleration:(float)accel {
     self.trueAccel = accel;
     if(self.currentPose.type == TLMPoseTypeFist) {
+        // TODO send to bluetooth
         self.effectiveAccel = accel;
         self.accelLabel.text = [NSString stringWithFormat:@"%f", accel];
     } else {
@@ -183,10 +177,6 @@
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
     TLMPose *pose = notification.userInfo[kTLMKeyPose];
     self.currentPose = pose;
-    
-    /*TLMOrientationEvent *orientationEvent = notification.userInfo[kTLMKeyOrientationEvent];
-    TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
-    float roll = angles.roll.degrees;*/
 
     // Handle the cases of the TLMPoseType enumeration, and change the color of helloLabel based on the pose we receive.
     switch (pose.type) {
@@ -196,47 +186,15 @@
         case TLMPoseTypeWaveOut:
         case TLMPoseTypeFingersSpread:
         case TLMPoseTypeThumbToPinky:
-            // Changes helloLabel's font to Helvetica Neue when the user is in a rest or unknown pose.
-            /*self.helloLabel.text = @"Hello Myo";
-            self.helloLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:50];
-            self.helloLabel.textColor = [UIColor blackColor];*/
             NSLog(@"neutral pose");
             self.effectiveAccel = 0.0;
             self.accelLabel.text = @"0.0";
             break;
         case TLMPoseTypeFist:
             NSLog(@"fist pose");
-            // Changes helloLabel's font to Noteworthy when the user is in a fist pose.
-            /*self.helloLabel.text = @"Fist";
-            self.helloLabel.font = [UIFont fontWithName:@"Noteworthy" size:50];
-            self.helloLabel.textColor = [UIColor greenColor];*/
             self.effectiveAccel = self.trueAccel;
             self.accelLabel.text = [NSString stringWithFormat:@"%f", self.trueAccel];
             break;
-        /*case TLMPoseTypeWaveIn:
-            // Changes helloLabel's font to Courier New when the user is in a wave in pose.
-            self.helloLabel.text = @"Wave In";
-            self.helloLabel.font = [UIFont fontWithName:@"Courier New" size:50];
-            self.helloLabel.textColor = [UIColor greenColor];
-            break;
-        case TLMPoseTypeWaveOut:
-            // Changes helloLabel's font to Snell Roundhand when the user is in a wave out pose.
-            self.helloLabel.text = @"Wave Out";
-            self.helloLabel.font = [UIFont fontWithName:@"Snell Roundhand" size:50];
-            self.helloLabel.textColor = [UIColor greenColor];
-            break;
-        case TLMPoseTypeFingersSpread:
-            // Changes helloLabel's font to Chalkduster when the user is in a fingers spread pose.
-            self.helloLabel.text = @"Fingers Spread";
-            self.helloLabel.font = [UIFont fontWithName:@"Chalkduster" size:50];
-            self.helloLabel.textColor = [UIColor greenColor];
-            break;
-        case TLMPoseTypeThumbToPinky:
-            // Changes helloLabel's font to Superclarendon when the user is in a twist in pose.
-            self.helloLabel.text = @"Thumb to Pinky";
-            self.helloLabel.font = [UIFont fontWithName:@"Georgia" size:50];
-            self.helloLabel.textColor = [UIColor greenColor];
-            break;*/
     }
 }
 
@@ -245,6 +203,14 @@
     UINavigationController *controller = [TLMSettingsViewController settingsInNavigationController];
     // Present the settings view controller modally.
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (IBAction)didTapBoard:(id)sender {
+    NSLog(@"board");
+    
+    self.btManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    [self.btManager scanForPeripheralsWithServices:nil options:nil];
+    
 }
 
 @end

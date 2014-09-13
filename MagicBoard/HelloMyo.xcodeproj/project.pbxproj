@@ -401,7 +401,7 @@
 					$SOURCE_ROOT,
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = HelloMyo;
+				PRODUCT_NAME = MyoBoard;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -428,7 +428,7 @@
 					$SOURCE_ROOT,
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = HelloMyo;
+				PRODUCT_NAME = MyoBoard;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

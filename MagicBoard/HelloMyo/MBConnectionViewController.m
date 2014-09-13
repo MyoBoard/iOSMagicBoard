@@ -276,13 +276,13 @@
     // D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20
     
     for (CBService *service in peripheral.services) {
-        NSLog(@"Discovered service %@", service);
-        //if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
-        if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
+        NSLog(@"Discovered service %@", service.UUID.UUIDString);
+        if([service.UUID.UUIDString isEqualToString:@"08C8C7A0-6CC5-11E3-981F-0800200C9A66"]) {
+        //if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
         //if([service.UUID.UUIDString isEqualToString:@"DA2B84F1-6279-48DE-BDC0-AFBEA0226079"]) {
             NSLog(@"match");
             [peripheral discoverCharacteristics:nil forService:service];
-            break;
+            //break;
         } else {
             NSLog(@"no match");
         }
@@ -293,9 +293,10 @@
 didDiscoverCharacteristicsForService:(CBService *)service
              error:(NSError *)error {
     
-    NSLog(@"service %@", service);
+    NSLog(@"service %@", service.UUID.UUIDString);
     for (CBCharacteristic *characteristic in service.characteristics) {
-        NSLog(@"Discovered characteristic %@", characteristic);
+        NSLog(@"UUID = %@, VALUE = %@", characteristic.UUID.UUIDString, characteristic.value);
+        //NSLog(@"Discovered characteristic %@", characteristic);
     }
 }
 

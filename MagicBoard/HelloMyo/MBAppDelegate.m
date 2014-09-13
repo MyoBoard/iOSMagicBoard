@@ -23,7 +23,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     
-    UIViewController *rootController = [[MBMainViewController alloc]init];
+    UIViewController *rootController = [[MBConnectionViewController alloc]init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
     // Instantiate our view controller
     navigationController.navigationBar.barTintColor = kMyoBlue;

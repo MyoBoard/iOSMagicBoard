@@ -15,7 +15,8 @@
 @interface MBConnectionViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *accelLabel;
-@property (weak, nonatomic) IBOutlet UIButton *boardButton;
+@property (weak, nonatomic) IBOutlet UIButton *myoButton;
+@property (weak, nonatomic) IBOutlet UIButton *boostedButton;
 @property (nonatomic) float trueAccel;
 @property (nonatomic) float effectiveAccel;
 @property TLMPose *currentPose;
@@ -39,13 +40,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(cancelConnect)];
-    cancelButton.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = cancelButton;
-        
-    [self.boardButton setEnabled:NO];
-    [self.boardButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
-
+    self.accelLabel.textColor    = kMyoBlue;
+    self.myoButton.tintColor     = kMyoBlue;
+    self.boostedButton.tintColor = kMyoBlue;
+    self.myoLabel.textColor      = kLightGrey;
+    self.boostedLabel.textColor  = kLightGrey;
+    
     // Data notifications are received through NSNotificationCenter.
     // Posted whenever a TLMMyo connects
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -94,7 +94,7 @@
 - (void)didConnectDevice:(NSNotification *)notification {
     self.accelLabel.text = @"Unknown";
     
-    [self.boardButton setEnabled:YES];
+    [self.boostedButton setEnabled:YES];
 
     // Set the text of the armLabel to "Perform the Sync Gesture"
     /*self.armLabel.text = @"Perform the Sync Gesture";
@@ -105,8 +105,8 @@
 
 - (void)didDisconnectDevice:(NSNotification *)notification {
     self.accelLabel.text = @"";
-    [self.boardButton setEnabled:NO];
-    [self.boardButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
+    [self.boostedButton setEnabled:NO];
+    [self.boostedButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 }
 
 - (void)didRecognizeArm:(NSNotification *)notification {

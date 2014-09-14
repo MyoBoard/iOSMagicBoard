@@ -30,6 +30,7 @@
 @property CBPeripheral *periph;
 @property CBCharacteristic *characteristic;
 //@property (nonatomic) BOOL towardWrist;
+@property (nonatomic) BOOL alertedToMax;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -44,6 +45,7 @@
     self = [super initWithNibName:@"MBConnectionViewController" bundle:nil];
     self.originalRollSet = NO;
     //self.towardWrist = YES;
+    self.alertedToMax = NO;
     return self;
 }
 
@@ -200,6 +202,16 @@
         double currentTime = CACurrentMediaTime();
         //NSLog(@"currentTime = %f; lastSentTime = %f", currentTime, self.lastSentTime);
         float newVal = self.effectiveAccel - self.originalRoll;
+        newVal = MAX(newVal, -45.0f);
+        newVal = MIN(newVal, 45.0f);
+        if(ABS(newVal) >= 45.0f) {
+            if(!self.alertedToMax) {
+                [[[[TLMHub sharedHub] myoDevices] objectAtIndex:0] vibrateWithLength:TLMVibrationLengthShort];
+                self.alertedToMax = YES;
+            }
+        } else {
+            self.alertedToMax = NO;
+        }
         if(self.characteristic && currentTime - self.lastSentTime > 0.200 && newVal != self.lastSent) {
             self.lastSentTime = currentTime;
             self.lastSent = newVal;

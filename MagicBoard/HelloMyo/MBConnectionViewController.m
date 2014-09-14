@@ -58,7 +58,8 @@
     self.myoLabel.textColor      = kLightGrey;
     self.boostedLabel.textColor  = kLightGrey;
     
-    self.navigationItem.title = @"Magic";
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navicon"]];
+//    self.navigationItem.title = @"Magic";
     
 //    self.navigationItem.titleView = [UITextView alloc]in
     // Data notifications are received through NSNotificationCenter.
@@ -108,8 +109,7 @@
 
 - (void)didConnectDevice:(NSNotification *)notification {
     self.accelLabel.text = @"Unknown";
-    
-    [self.boostedButton setEnabled:YES];
+    self.myoLabel.text = @"Myo Connected!";
 
     // Set the text of the armLabel to "Perform the Sync Gesture"
     /*self.armLabel.text = @"Perform the Sync Gesture";

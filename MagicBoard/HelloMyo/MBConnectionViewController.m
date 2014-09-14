@@ -31,6 +31,13 @@
 @property CBCharacteristic *characteristic;
 //@property (nonatomic) BOOL towardWrist;
 @property (nonatomic) BOOL alertedToMax;
+@property (nonatomic) double lastAccelTime;
+@property (nonatomic) float lastAccelX;
+@property (nonatomic) float lastAccelY;
+@property (nonatomic) float lastAccelZ;
+@property (nonatomic) float velocitySumX;
+@property (nonatomic) float velocitySumY;
+@property (nonatomic) float velocitySumZ;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -46,6 +53,13 @@
     self.originalRollSet = NO;
     //self.towardWrist = YES;
     self.alertedToMax = NO;
+    self.lastAccelTime = CACurrentMediaTime();
+    self.lastAccelX = 0.0;
+    self.lastAccelY = 0.0;
+    self.lastAccelZ = 0.0;
+    self.velocitySumX = 0.0;
+    self.velocitySumY = 0.0;
+    self.velocitySumZ = 0.0;
     return self;
 }
 
@@ -112,12 +126,12 @@
     self.accelLabel.text = @"Unknown";
     
     [self.boostedButton setEnabled:YES];
+    
+    /*TLMMyo* myo = [[[TLMHub sharedHub] myoDevices] objectAtIndex:0];
+    self.towardWrist = myo.arm.xDirection == TLMArmXDirectionTowardWrist;*/
 
     // Set the text of the armLabel to "Perform the Sync Gesture"
-    /*self.armLabel.text = @"Perform the Sync Gesture";
-
-    // Set the text of our helloLabel to be "Hello Myo".
-    self.helloLabel.text = @"Hello Myo";*/
+    /*self.armLabel.text = @"Perform the Sync Gesture";*/
 }
 
 - (void)didDisconnectDevice:(NSNotification *)notification {
@@ -128,10 +142,10 @@
 
 - (void)didRecognizeArm:(NSNotification *)notification {
     // Retrieve the arm event from the notification's userInfo with the kTLMKeyArmRecognizedEvent key.
-    /*TLMArmRecognizedEvent *armEvent = notification.userInfo[kTLMKeyArmRecognizedEvent];
+    //TLMArmRecognizedEvent *armEvent = notification.userInfo[kTLMKeyArmRecognizedEvent];
 
     // Update the armLabel with arm information
-    NSString *armString = armEvent.arm == TLMArmRight ? @"Right" : @"Left";
+    /*NSString *armString = armEvent.arm == TLMArmRight ? @"Right" : @"Left";
     NSLog(@"arm = %@", armString);*/
     // toward wrist = light up
     //self.towardWrist = armEvent.xDirection == TLMArmXDirectionTowardWrist;
@@ -151,7 +165,7 @@
     TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
     
     self.currentPitch = angles.pitch.degrees;
-    /*if(self.towardWrist) {
+    /*if(!self.towardWrist) {
         NSLog(@"flipping pitch");
         self.currentPitch *= -1;
     }*/
@@ -176,22 +190,32 @@
 
 - (void)didReceiveAccelerometerEvent:(NSNotification *)notification {
     // Retrieve the accelerometer event from the NSNotification's userInfo with the kTLMKeyAccelerometerEvent.
-    /*TLMAccelerometerEvent *accelerometerEvent = notification.userInfo[kTLMKeyAccelerometerEvent];
+    TLMAccelerometerEvent *accelerometerEvent = notification.userInfo[kTLMKeyAccelerometerEvent];
 
     // Get the acceleration vector from the accelerometer event.
     GLKVector3 accelerationVector = accelerometerEvent.vector;
 
     // Calculate the magnitude of the acceleration vector.
-    float magnitude = GLKVector3Length(accelerationVector);
+    //float magnitude = GLKVector3Length(accelerationVector);
 
-    // Update the progress bar based on the magnitude of the acceleration vector.
-    self.accelerationProgressBar.progress = magnitude / 8;*/
-
-    /* Note you can also access the x, y, z values of the acceleration (in G's) like below
-     float x = accelerationVector.x;
-     float y = accelerationVector.y;
-     float z = accelerationVector.z;
-     */
+    // Note you can also access the x, y, z values of the acceleration (in G's) like below
+    float x = accelerationVector.x;
+    float y = accelerationVector.y;
+    float z = accelerationVector.z;
+    NSLog(@"accel = (%f, %f, %f)", x, y, z);
+    
+    double currentTime = CACurrentMediaTime();
+    double dt = currentTime - self.lastAccelTime;
+    self.velocitySumX += (self.lastAccelX + x) * dt / 2.0;
+    self.velocitySumY += (self.lastAccelY + y) * dt / 2.0;
+    self.velocitySumZ += (self.lastAccelZ + z) * dt / 2.0;
+    
+    NSLog(@"current velocity = (%f, %f, %f)", self.velocitySumX, self.velocitySumY, self.velocitySumZ);
+    
+    self.lastAccelTime = currentTime;
+    self.lastAccelX = x;
+    self.lastAccelY = y;
+    self.lastAccelZ = z;
 }
 
 - (void)setAcceleration:(float)accel {

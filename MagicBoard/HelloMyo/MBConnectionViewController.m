@@ -29,6 +29,7 @@
 @property BTPickerController *btPicker;
 @property CBPeripheral *periph;
 @property CBCharacteristic *characteristic;
+//@property (nonatomic) BOOL towardWrist;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -42,11 +43,14 @@
     // Initialize our view controller with a nib (see TLHMViewController.xib).
     self = [super initWithNibName:@"MBConnectionViewController" bundle:nil];
     self.originalRollSet = NO;
+    //self.towardWrist = YES;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     self.accelLabel.textColor    = kMyoBlue;
     self.myoButton.tintColor     = kMyoBlue;
@@ -126,16 +130,14 @@
 
     // Update the armLabel with arm information
     NSString *armString = armEvent.arm == TLMArmRight ? @"Right" : @"Left";
-    NSString *directionString = armEvent.xDirection == TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow";
-    self.armLabel.text = [NSString stringWithFormat:@"Arm: %@ X-Direction: %@", armString, directionString];*/
+    NSLog(@"arm = %@", armString);*/
+    // toward wrist = light up
+    //self.towardWrist = armEvent.xDirection == TLMArmXDirectionTowardWrist;
+    //NSString *directionString = armEvent.xDirection == TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow";
+    //NSLog(@"dir = %@", directionString);
 }
 
 - (void)didLoseArm:(NSNotification *)notification {
-    // Reset the armLabel and helloLabel
-    /*self.armLabel.text = @"Perform the Sync Gesture";
-    self.helloLabel.text = @"Hello Myo";
-    self.helloLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:50];
-    self.helloLabel.textColor = [UIColor blackColor];*/
     self.accelLabel.text = @"Unknown";
 }
 
@@ -147,12 +149,17 @@
     TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
     
     self.currentPitch = angles.pitch.degrees;
+    /*if(self.towardWrist) {
+        NSLog(@"flipping pitch");
+        self.currentPitch *= -1;
+    }*/
     if(self.currentPitch > 10) {
         //NSLog(@"disabling originalRoll");
         self.originalRollSet = NO;
     } else if(self.currentPitch < 10 && !self.originalRollSet) {
         self.originalRollSet = YES;
         self.originalRoll = angles.roll.degrees;
+        [[[[TLMHub sharedHub] myoDevices] objectAtIndex:0] vibrateWithLength:TLMVibrationLengthMedium];
         //NSLog(@"setting originalRoll to %f", self.originalRoll);
     }
     
@@ -163,12 +170,6 @@
         self.originalRollSet = YES;
         self.originalRoll = angles.roll.degrees;
     }*/
-
-    /*// Next, we want to apply a rotation and perspective transformation based on the pitch, yaw, and roll.
-    CATransform3D rotationAndPerspectiveTransform = CATransform3DConcat(CATransform3DConcat(CATransform3DRotate (CATransform3DIdentity, angles.pitch.radians, -1.0, 0.0, 0.0), CATransform3DRotate(CATransform3DIdentity, angles.yaw.radians, 0.0, 1.0, 0.0)), CATransform3DRotate(CATransform3DIdentity, angles.roll.radians, 0.0, 0.0, -1.0));
-
-    // Apply the rotation and perspective transform to helloLabel.
-    self.helloLabel.layer.transform = rotationAndPerspectiveTransform;*/
 }
 
 - (void)didReceiveAccelerometerEvent:(NSNotification *)notification {
@@ -285,6 +286,7 @@
     [peripheral discoverServices:nil];
 }
 
+// TODO doesn't work
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"peripheral disconnected");
     self.periph = nil;
@@ -312,7 +314,7 @@
 }
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    NSLog(@"updateState: %d", central.state);
+    //NSLog(@"updateState: %d", central.state);
     if(central.state == CBCentralManagerStateUnknown){
         [central cancelPeripheralConnection:self.periph];
     }
@@ -342,8 +344,6 @@ didDiscoverCharacteristicsForService:(CBService *)service
     if(!self.characteristic) {
         self.periph = peripheral;
         self.characteristic = [service.characteristics objectAtIndex:0];
-        //NSLog(@"writing to characteristic %@", self.characteristic.description);
-        //[peripheral writeValue:[@"5" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 

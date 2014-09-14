@@ -128,8 +128,11 @@
 */
 
 - (void)addPeripheral:(CBPeripheral*)peripheral {
-    [self.peripherals addObject:peripheral];
-    [self.tableView reloadData];
+    //NSLog(@"%@", peripheral.name);
+    if(peripheral && ![peripheral.name isEqualToString:@"(null)"]) {
+        [self.peripherals addObject:peripheral];
+        [self.tableView reloadData];
+    }
 }
 
 @end

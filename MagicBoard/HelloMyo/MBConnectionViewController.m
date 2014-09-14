@@ -21,11 +21,15 @@
 @property (nonatomic) float effectiveAccel;
 @property (nonatomic) float originalRoll;
 @property (nonatomic) BOOL originalRollSet;
-@property TLMPose *currentPose;
+@property (nonatomic) float lastSent;
+@property (nonatomic) double lastSentTime;
+//@property TLMPose *currentPose;
+@property (nonatomic) float currentPitch;
 @property CBCentralManager *btManager;
 @property BTPickerController *btPicker;
 @property CBPeripheral *periph;
 @property CBCharacteristic *characteristic;
+//@property (nonatomic) BOOL towardWrist;
 
 - (IBAction)didTapSettings:(id)sender;
 
@@ -39,11 +43,14 @@
     // Initialize our view controller with a nib (see TLHMViewController.xib).
     self = [super initWithNibName:@"MBConnectionViewController" bundle:nil];
     self.originalRollSet = NO;
+    //self.towardWrist = YES;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     self.accelLabel.textColor    = kMyoBlue;
     self.myoButton.tintColor     = kMyoBlue;
@@ -123,16 +130,14 @@
 
     // Update the armLabel with arm information
     NSString *armString = armEvent.arm == TLMArmRight ? @"Right" : @"Left";
-    NSString *directionString = armEvent.xDirection == TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow";
-    self.armLabel.text = [NSString stringWithFormat:@"Arm: %@ X-Direction: %@", armString, directionString];*/
+    NSLog(@"arm = %@", armString);*/
+    // toward wrist = light up
+    //self.towardWrist = armEvent.xDirection == TLMArmXDirectionTowardWrist;
+    //NSString *directionString = armEvent.xDirection == TLMArmXDirectionTowardWrist ? @"Toward Wrist" : @"Toward Elbow";
+    //NSLog(@"dir = %@", directionString);
 }
 
 - (void)didLoseArm:(NSNotification *)notification {
-    // Reset the armLabel and helloLabel
-    /*self.armLabel.text = @"Perform the Sync Gesture";
-    self.helloLabel.text = @"Hello Myo";
-    self.helloLabel.font = [UIFont fontWithName:@"Helvetica Neue" size:50];
-    self.helloLabel.textColor = [UIColor blackColor];*/
     self.accelLabel.text = @"Unknown";
 }
 
@@ -143,19 +148,28 @@
     // Create Euler angles from the quaternion of the orientation.
     TLMEulerAngles *angles = [TLMEulerAngles anglesWithQuaternion:orientationEvent.quaternion];
     
+    self.currentPitch = angles.pitch.degrees;
+    /*if(self.towardWrist) {
+        NSLog(@"flipping pitch");
+        self.currentPitch *= -1;
+    }*/
+    if(self.currentPitch > 10) {
+        //NSLog(@"disabling originalRoll");
+        self.originalRollSet = NO;
+    } else if(self.currentPitch < 10 && !self.originalRollSet) {
+        self.originalRollSet = YES;
+        self.originalRoll = angles.roll.degrees;
+        [[[[TLMHub sharedHub] myoDevices] objectAtIndex:0] vibrateWithLength:TLMVibrationLengthMedium];
+        //NSLog(@"setting originalRoll to %f", self.originalRoll);
+    }
+    
     //NSLog(@"(%f, %f, %f)", angles.pitch.degrees, angles.yaw.degrees, angles.roll.degrees);
     [self setAcceleration:angles.roll.degrees];
     
-    if(!self.originalRollSet) {
+    /*if(!self.originalRollSet) {
         self.originalRollSet = YES;
         self.originalRoll = angles.roll.degrees;
-    }
-
-    /*// Next, we want to apply a rotation and perspective transformation based on the pitch, yaw, and roll.
-    CATransform3D rotationAndPerspectiveTransform = CATransform3DConcat(CATransform3DConcat(CATransform3DRotate (CATransform3DIdentity, angles.pitch.radians, -1.0, 0.0, 0.0), CATransform3DRotate(CATransform3DIdentity, angles.yaw.radians, 0.0, 1.0, 0.0)), CATransform3DRotate(CATransform3DIdentity, angles.roll.radians, 0.0, 0.0, -1.0));
-
-    // Apply the rotation and perspective transform to helloLabel.
-    self.helloLabel.layer.transform = rotationAndPerspectiveTransform;*/
+    }*/
 }
 
 - (void)didReceiveAccelerometerEvent:(NSNotification *)notification {
@@ -180,23 +194,36 @@
 
 - (void)setAcceleration:(float)accel {
     self.trueAccel = accel;
-    if(self.currentPose.type == TLMPoseTypeFist) {
+    //if(self.currentPose.type == TLMPoseTypeFist) {
+    if(self.currentPitch < 10) {
         self.effectiveAccel = accel;
-        if(self.characteristic) {
-            NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel - self.originalRoll];
+        double currentTime = CACurrentMediaTime();
+        //NSLog(@"currentTime = %f; lastSentTime = %f", currentTime, self.lastSentTime);
+        float newVal = self.effectiveAccel - self.originalRoll;
+        if(self.characteristic && currentTime - self.lastSentTime > 0.200 && newVal != self.lastSent) {
+            self.lastSentTime = currentTime;
+            self.lastSent = newVal;
+            NSString* str = [NSString stringWithFormat:@"%f", newVal];
+            NSLog(@"1 - %@", str);
             NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-            NSLog(@"data = %@", data);
+            //NSLog(@"data = %@", data);
             [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
         }
         NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
         [fmt setPositiveFormat:@"0.##"];
-        self.accelLabel.text = [fmt stringFromNumber:[NSNumber numberWithFloat:accel]];
+        self.accelLabel.text = [fmt stringFromNumber:[NSNumber numberWithFloat:newVal]];
     } else {
         self.effectiveAccel = 0.0;
-        NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel];
-        NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
-        NSLog(@"data = %@", data);
-        [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+        //double currentTime = CACurrentMediaTime();
+        if(self.characteristic && /*currentTime - self.lastSentTime > 0.®200 &&*/ self.effectiveAccel != self.lastSent) {
+            //self.lastSentTime = currentTime;
+            self.lastSent = self.effectiveAccel;
+            NSString* str = [NSString stringWithFormat:@"%f", self.effectiveAccel];
+            NSLog(@"2 - %@ ", str);
+            NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];
+            //NSLog(@"data = %@", data);
+            [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+        }
         self.accelLabel.text = @"0.0";
     }
 }
@@ -204,7 +231,7 @@
 - (void)didReceivePoseChange:(NSNotification *)notification {
     //NSLog(@"pose change");
     // Retrieve the pose from the NSNotification's userInfo with the kTLMKeyPose key.
-    TLMPose *pose = notification.userInfo[kTLMKeyPose];
+    /*TLMPose *pose = notification.userInfo[kTLMKeyPose];
     self.currentPose = pose;
 
     // Handle the cases of the TLMPoseType enumeration, and change the color of helloLabel based on the pose we receive.
@@ -215,16 +242,16 @@
         case TLMPoseTypeWaveOut:
         case TLMPoseTypeFingersSpread:
         case TLMPoseTypeThumbToPinky:
-            //NSLog(@"neutral pose");
+            NSLog(@"neutral pose");
             self.effectiveAccel = 0.0;
             self.accelLabel.text = @"0.0";
             break;
         case TLMPoseTypeFist:
-            //NSLog(@"fist pose");
+            NSLog(@"fist pose");
             self.effectiveAccel = self.trueAccel;
             self.accelLabel.text = [NSString stringWithFormat:@"%f", self.trueAccel];
             break;
-    }
+    }*/
 }
 
 -(void)cancelConnect
@@ -259,6 +286,7 @@
     [peripheral discoverServices:nil];
 }
 
+// TODO doesn't work
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"peripheral disconnected");
     self.periph = nil;
@@ -286,7 +314,10 @@
 }
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    
+    //NSLog(@"updateState: %d", central.state);
+    if(central.state == CBCentralManagerStateUnknown){
+        [central cancelPeripheralConnection:self.periph];
+    }
 }
 
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict {
@@ -300,11 +331,8 @@
     
     for (CBService *service in peripheral.services) {
         if([service.UUID.UUIDString isEqualToString:@"D752C5FB-1380-4CD5-B0EF-CAC7D72CFF20"]) {
-            NSLog(@"match");
             [peripheral discoverCharacteristics:nil forService:service];
             break;
-        } else {
-            NSLog(@"no match");
         }
     }
 }
@@ -316,8 +344,6 @@ didDiscoverCharacteristicsForService:(CBService *)service
     if(!self.characteristic) {
         self.periph = peripheral;
         self.characteristic = [service.characteristics objectAtIndex:0];
-        //NSLog(@"writing to characteristic %@", self.characteristic.description);
-        //[peripheral writeValue:[@"5" dataUsingEncoding:NSUTF8StringEncoding] forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 

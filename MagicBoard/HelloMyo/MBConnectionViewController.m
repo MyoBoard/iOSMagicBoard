@@ -61,7 +61,6 @@
     self.boostedLabel.textColor  = kLightGrey;
     
     self.graphView.clockwise = YES;
-    self.graphView.percent = 0.6f;
     self.graphView.startAngle = 1.6f;
     self.graphView.backgroundColor = [UIColor clearColor];
     self.graphView.tintColor = kMyoBlue;
@@ -133,7 +132,6 @@
     self.accelLabel.text = @"";
     self.myoLabel.text = @"Myo Device Not Connected...";
     self.myoLabel.textColor = kLightGrey;
-    [self.boostedButton setEnabled:NO];
     [self.boostedButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 }
 
@@ -262,6 +260,7 @@
             [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
         }
         self.accelLabel.text = @"0.0";
+        self.graphView.percent = 0.0f;
     }
 }
 

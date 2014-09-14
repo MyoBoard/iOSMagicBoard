@@ -129,7 +129,7 @@
 
 - (void)addPeripheral:(CBPeripheral*)peripheral {
     //NSLog(@"%@", peripheral.name);
-    if(peripheral && ![peripheral.name isEqualToString:@"(null)"]) {
+    if(peripheral || peripheral.name) {
         [self.peripherals addObject:peripheral];
         [self.tableView reloadData];
     }

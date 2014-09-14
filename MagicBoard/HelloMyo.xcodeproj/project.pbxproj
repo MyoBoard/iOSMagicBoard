@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		378A627619C42D2C002222A2 /* BTPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 378A627419C42D2C002222A2 /* BTPickerController.m */; };
 		378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 378A627519C42D2C002222A2 /* BTPickerController.xib */; };
-		37990E401888304E00A4E063 /* MBConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */; };
 		4D00AF1917CE6E3800A0FAE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */; };
 		4D00AF1B17CE6E3800A0FAE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1A17CE6E3800A0FAE8 /* CoreGraphics.framework */; };
 		4D00AF1D17CE6E3800A0FAE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D00AF1C17CE6E3800A0FAE8 /* UIKit.framework */; };
@@ -25,6 +24,8 @@
 		4D00AF4417CE6E3800A0FAE8 /* HelloMyoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00AF4317CE6E3800A0FAE8 /* HelloMyoTests.m */; };
 		4D4EEBF717E226B900CAA2AF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */; };
 		5087118F19C4848D001FBADE /* MBUserInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087118E19C4848D001FBADE /* MBUserInterface.m */; };
+		508711FF19C563A9001FBADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508711FE19C563A9001FBADE /* Main.storyboard */; };
+		5087120119C57D10001FBADE /* addButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5087120019C57D10001FBADE /* addButton.png */; };
 		54EA8FC819BFD94500D792A0 /* MyoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54EA8FC719BFD94500D792A0 /* MyoKit.framework */; };
 		DA73939BCD5C4285A74AA9AA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62946F9FBD0442FFB0C78872 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -43,7 +44,6 @@
 		378A627319C42D2C002222A2 /* BTPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPickerController.h; sourceTree = "<group>"; };
 		378A627419C42D2C002222A2 /* BTPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPickerController.m; sourceTree = "<group>"; };
 		378A627519C42D2C002222A2 /* BTPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BTPickerController.xib; sourceTree = "<group>"; };
-		37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MBConnectionViewController.xib; sourceTree = "<group>"; };
 		4D00AF1517CE6E3800A0FAE8 /* MyoBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00AF1817CE6E3800A0FAE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4D00AF1A17CE6E3800A0FAE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -65,6 +65,8 @@
 		4D4EEBF617E226B900CAA2AF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5087118D19C4848D001FBADE /* MBUserInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBUserInterface.h; sourceTree = "<group>"; };
 		5087118E19C4848D001FBADE /* MBUserInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBUserInterface.m; sourceTree = "<group>"; };
+		508711FE19C563A9001FBADE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5087120019C57D10001FBADE /* addButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addButton.png; sourceTree = "<group>"; };
 		54EA8FC719BFD94500D792A0 /* MyoKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MyoKit.framework; path = ../MyoKit.framework; sourceTree = "<group>"; };
 		62946F9FBD0442FFB0C78872 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF4AECE152C34360A4E49999 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -138,8 +140,9 @@
 				4D00AF2817CE6E3800A0FAE8 /* MBAppDelegate.m */,
 				4D00AF2D17CE6E3800A0FAE8 /* MBConnectionViewController.h */,
 				4D00AF2E17CE6E3800A0FAE8 /* MBConnectionViewController.m */,
-				37990E3F1888304E00A4E063 /* MBConnectionViewController.xib */,
 				4D00AF3017CE6E3800A0FAE8 /* Images.xcassets */,
+				5087120019C57D10001FBADE /* addButton.png */,
+				508711FE19C563A9001FBADE /* Main.storyboard */,
 				5087119019C4849A001FBADE /* Resources */,
 				4D00AF1F17CE6E3800A0FAE8 /* Supporting Files */,
 				378A627319C42D2C002222A2 /* BTPickerController.h */,
@@ -273,8 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D00AF3117CE6E3800A0FAE8 /* Images.xcassets in Resources */,
+				5087120119C57D10001FBADE /* addButton.png in Resources */,
+				508711FF19C563A9001FBADE /* Main.storyboard in Resources */,
 				4D00AF2317CE6E3800A0FAE8 /* InfoPlist.strings in Resources */,
-				37990E401888304E00A4E063 /* MBConnectionViewController.xib in Resources */,
 				378A627719C42D2C002222A2 /* BTPickerController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,8 @@
 #import <MyoKit/MyoKit.h>
 #import "MBConnectionViewController.h"
 #import "MBUserInterface.h"
+#import "GRKCircularGraphView.h"
+
 
 @implementation MBAppDelegate
 
@@ -19,15 +21,22 @@
     // Call attachToAdjacent to begin looking for Myos to pair with.
     [[TLMHub sharedHub] attachToAdjacent];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [GRKCircularGraphView class];
     
     NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor, nil];
     [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     
-    UIViewController *rootController = [[MBConnectionViewController alloc]init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
-    // Instantiate our view controller
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navigationController = [sb instantiateInitialViewController];
+//    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"MBConnectionViewController"];
+//    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//    [self presentViewController:vc animated:YES completion:NULL];
+//    UIViewController *rootController = [[MBConnectionViewController alloc]init];
+//    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootController];
+//    // Instantiate our view controller
     navigationController.navigationBar.barTintColor = kMyoBlue;
     navigationController.navigationBar.tintColor   = [UIColor whiteColor];
     navigationController.navigationBar.translucent = NO;

@@ -11,10 +11,10 @@
 #import "BTPickerController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "MBUserInterface.h"
+#import "GRKCircularGraphView.h"
 
 @interface MBConnectionViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *accelLabel;
 @property (weak, nonatomic) IBOutlet UIButton *myoButton;
 @property (weak, nonatomic) IBOutlet UIButton *boostedButton;
 @property (nonatomic) float trueAccel;
@@ -74,7 +74,15 @@
     self.myoLabel.textColor      = kLightGrey;
     self.boostedLabel.textColor  = kLightGrey;
     
-    self.navigationItem.title = @"Magic";
+    self.graphView.clockwise = YES;
+    self.graphView.startAngle = 1.6f;
+    self.graphView.backgroundColor = [UIColor clearColor];
+    self.graphView.tintColor = kMyoBlue;
+    
+    [self updateViewConstraints];
+    
+    self.navigationItem.titleView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"navicon"]];
+//    self.navigationItem.title = @"Magic";
     
 //    self.navigationItem.titleView = [UITextView alloc]in
     // Data notifications are received through NSNotificationCenter.
@@ -125,10 +133,12 @@
 - (void)didConnectDevice:(NSNotification *)notification {
     self.accelLabel.text = @"Unknown";
     
-    [self.boostedButton setEnabled:YES];
+    //[self.boostedButton setEnabled:YES];
     
     /*TLMMyo* myo = [[[TLMHub sharedHub] myoDevices] objectAtIndex:0];
     self.towardWrist = myo.arm.xDirection == TLMArmXDirectionTowardWrist;*/
+    self.myoLabel.text = @"Myo Connected!";
+    self.myoLabel.textColor = [UIColor grayColor];
 
     // Set the text of the armLabel to "Perform the Sync Gesture"
     /*self.armLabel.text = @"Perform the Sync Gesture";*/
@@ -136,7 +146,8 @@
 
 - (void)didDisconnectDevice:(NSNotification *)notification {
     self.accelLabel.text = @"";
-    [self.boostedButton setEnabled:NO];
+    self.myoLabel.text = @"Myo Device Not Connected...";
+    self.myoLabel.textColor = kLightGrey;
     [self.boostedButton setTitleColor:[UIColor colorWithWhite:0.8 alpha:1.0] forState:UIControlStateDisabled];
 }
 
@@ -246,8 +257,22 @@
             [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
         }
         NSNumberFormatter* fmt = [[NSNumberFormatter alloc] init];
-        [fmt setPositiveFormat:@"0.##"];
+        [fmt setPositiveFormat:@"0.#"];
         self.accelLabel.text = [fmt stringFromNumber:[NSNumber numberWithFloat:newVal]];
+        if (newVal >= 0){
+            self.graphView.clockwise = YES;
+            self.graphView.percent = newVal/45;
+            self.graphView.backgroundColor = [UIColor clearColor];
+            self.accelLabel.textColor = kMyoBlue;
+            self.graphView.tintColor = kMyoBlue;
+        } else {
+            self.graphView.clockwise = NO;
+            self.graphView.percent = newVal/-45;
+            self.graphView.backgroundColor = [UIColor clearColor];
+            self.graphView.tintColor = kReverseRed;
+            self.accelLabel.textColor = kReverseRed;
+        }
+
     } else {
         self.effectiveAccel = 0.0;
         //double currentTime = CACurrentMediaTime();
@@ -261,6 +286,7 @@
             [self.periph writeValue:data forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
         }
         self.accelLabel.text = @"0.0";
+        self.graphView.percent = 0.0f;
     }
 }
 
@@ -318,6 +344,8 @@
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"peripheral connected");
+    self.boostedLabel.text = @"Boosted Connect!";
+    self.boostedLabel.textColor = [UIColor grayColor];
     peripheral.delegate = self;
     [peripheral discoverServices:nil];
 }
@@ -325,6 +353,8 @@
 // TODO doesn't work
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"peripheral disconnected");
+    self.boostedLabel.text = @"Boosted Not Connected...";
+    self.boostedLabel.textColor = kLightGrey;
     self.periph = nil;
     self.characteristic = nil;
 }
